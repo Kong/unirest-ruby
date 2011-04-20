@@ -23,5 +23,8 @@
 	
 module ClientInfo
 	CLIENT_LIBRARY_LANGUAGE="RUBY"
-	CLIENT_LIBRARY_VERSION="V01"
+	CLIENT_LIBRARY_VERSION="V02"
+  TOKEN="_token"
+  LANGUAGE="_language"
+  VERSION="_version"
 end

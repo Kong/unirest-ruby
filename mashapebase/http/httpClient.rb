@@ -29,15 +29,12 @@ require "rubygems"
 require 'json'
 require File.join(File.dirname(__FILE__), "/../init/init.rb")
 require File.join(File.dirname(__FILE__), "/../exceptions/mashapeClientException.rb")
+require File.join(File.dirname(__FILE__), "/urlUtils.rb")
 
 class HttpClient
-
-  METHOD="_method"
-  TOKEN="_token"
-  LANGUAGE="_language"
-  VERSION="_version"
-  def HttpClient.doCall(baseUrl, httpMethod, method, token, parameters)
-
+  
+  def HttpClient.doCall(url, httpMethod, token, parameters)
+    
     if parameters.nil?
       parameters = Array.new()
     else
@@ -50,55 +47,59 @@ class HttpClient
         end
       end
     end
-
-    parameters[METHOD] = method;
-    parameters[TOKEN] = token;
-    parameters[LANGUAGE] = ClientInfo::CLIENT_LIBRARY_LANGUAGE;
-    parameters[VERSION] = ClientInfo::CLIENT_LIBRARY_VERSION;
-
+    
+    parameters[ClientInfo::TOKEN] = token;
+    parameters[ClientInfo::LANGUAGE] = ClientInfo::CLIENT_LIBRARY_LANGUAGE;
+    parameters[ClientInfo::VERSION] = ClientInfo::CLIENT_LIBRARY_VERSION;
+    
+    url = UrlUtils.addClientParameters(url)
+    
     response = ""
-
+    
     begin
       case httpMethod
-      when :get
-        response = HttpClient.doGet(baseUrl, parameters);
-      when :post
-        response = HttpClient.doPost(baseUrl, parameters);
-      when :put
-        response = HttpClient.doPut(baseUrl, parameters);
-      when :delete
-        response = HttpClient.doDelete(baseUrl, parameters);
+        when :get
+        response = HttpClient.doGet(url, parameters);
+        when :post
+        response = HttpClient.doPost(url, parameters);
+        when :put
+        response = HttpClient.doPut(url, parameters);
+        when :delete
+        response = HttpClient.doDelete(url, parameters);
       else
         raise MashapeClientException.new(ExceptionMessages::EXCEPTION_NOTSUPPORTED_HTTPMETHOD, ExceptionMessages::EXCEPTION_NOTSUPPORTED_HTTPMETHOD_CODE)
       end
     rescue StandardError
       response = ""
     end
-
+    
     if response.empty?
       raise MashapeClientException.new(ExceptionMessages::EXCEPTION_EMPTY_REQUEST, ExceptionMessages::EXCEPTION_SYSTEM_ERROR_CODE)
     end
-
+    
     begin
       responseObject = JSON.parse(response)
     rescue StandardError
-      raise MashapeClientException.new(ExceptionMessages::EXCEPTION_INVALID_REQUEST, ExceptionMessages::EXCEPTION_SYSTEM_ERROR_CODE)
+      raise MashapeClientException.new(ExceptionMessages::EXCEPTION_INVALID_REQUEST % response, ExceptionMessages::EXCEPTION_SYSTEM_ERROR_CODE)
     end
-
+    
     return responseObject
-
+    
   end
-
-  def HttpClient.doGet(url, parameters)
-    queryString = ""
+  
+  def HttpClient.replaceParameters(url, parameters)
+    finalUrl = UrlUtils.getCleanUrl(url, parameters)
     unless parameters.empty?
       parameters.each do |name,value|
-        queryString +="&" unless queryString.empty?
-        queryString += name + "=" + CGI::escape(value)
+        finalUrl = finalUrl.gsub("{" + name + "}", CGI::escape(value))
       end
     end
-
-    uri = URI.parse(url + "?" + queryString)
+    return finalUrl
+  end
+  
+  def HttpClient.doGet(url, parameters)
+    finalUrl = HttpClient.replaceParameters(url, parameters);
+    uri = URI.parse(finalUrl)
     http = Net::HTTP.new(uri.host, uri.port)
     if uri.port == 443
       http.use_ssl = true
@@ -107,41 +108,44 @@ class HttpClient
     response = http.request(request)
     return response.body
   end
-
+  
   def HttpClient.doPost(url, parameters)
-    uri = URI.parse(url)
+    finalUrl = HttpClient.replaceParameters(url, parameters);
+    uri = URI.parse(UrlUtils.removeQueryString(finalUrl))
     http = Net::HTTP.new(uri.host, uri.port)
     if uri.port == 443
       http.use_ssl = true
     end
     request = Net::HTTP::Post.new(uri.request_uri)
-    request.set_form_data(parameters)
+    request.set_form_data(parameters.merge(UrlUtils.getQueryStringParameters(url)))
     response = http.request(request)
     return response.body
   end
-
+  
   def HttpClient.doPut(url, parameters)
-    uri = URI.parse(url)
+    finalUrl = HttpClient.replaceParameters(url, parameters);
+    uri = URI.parse(UrlUtils.removeQueryString(finalUrl))
     http = Net::HTTP.new(uri.host, uri.port)
     if uri.port == 443
       http.use_ssl = true
     end
     request = Net::HTTP::Put.new(uri.request_uri)
-    request.set_form_data(parameters)
+    request.set_form_data(parameters.merge(UrlUtils.getQueryStringParameters(url)))
     response = http.request(request)
     return response.body
   end
-
+  
   def HttpClient.doDelete(url, parameters)
-    uri = URI.parse(url)
+    finalUrl = HttpClient.replaceParameters(url, parameters);
+    uri = URI.parse(UrlUtils.removeQueryString(finalUrl))
     http = Net::HTTP.new(uri.host, uri.port)
     if uri.port == 443
       http.use_ssl = true
     end
     request = Net::HTTP::Delete.new(uri.request_uri)
-    request.set_form_data(parameters)
+    request.set_form_data(parameters.merge(UrlUtils.getQueryStringParameters(url)))
     response = http.request(request)
     return response.body
   end
-
+  
 end

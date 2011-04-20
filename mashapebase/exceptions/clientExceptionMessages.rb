@@ -29,5 +29,5 @@ module ExceptionMessages
 
   EXCEPTION_EMPTY_REQUEST="A request attempt was made to the component, but the response was empty. The component's URL may be wrong or the firewall may be blocking your outbound HTTP requests"
 
-  EXCEPTION_INVALID_REQUEST="The component returned an invalid response"
+  EXCEPTION_INVALID_REQUEST="The component returned an invalid response: %s"
 end

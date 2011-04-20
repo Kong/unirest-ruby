@@ -31,8 +31,8 @@ require File.join(File.dirname(__FILE__), "/../exceptions/mashapeClientException
 class TokenUtil
 
   TOKEN_URL="https://api.mashape.com/requestToken"
-  def TokenUtil.requestToken(apiKey)
-    parameters = {"apikey" => apiKey}
+  def TokenUtil.requestToken(devKey)
+    parameters = {"devkey" => devKey}
     data = HttpClient.doPost(TOKEN_URL, parameters);
 
     result = JSON.parse(data)
