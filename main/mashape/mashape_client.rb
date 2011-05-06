@@ -15,33 +15,11 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
-# 
+#
 #
 # The author of this software is Mashape, Inc.
 # For any question or feedback please contact us at: support@mashape.com
 #++
 
-require 'net/http'
-require 'uri'
-require "rubygems"
-require 'json'
-require File.join(File.dirname(__FILE__), "/httpClient.rb")
-require File.join(File.dirname(__FILE__), "/../exceptions/mashapeClientException.rb")
-
-class TokenUtil
-
-  TOKEN_URL="https://api.mashape.com/requestToken"
-  def TokenUtil.requestToken(devKey)
-    parameters = {"devkey" => devKey}
-    data = HttpClient.doPost(TOKEN_URL, parameters);
-
-    result = JSON.parse(data)
-    errors = result["errors"]
-    if errors.empty?
-      return result["token"]
-    else
-      raise MashapeClientException.new(errors[0]["message"], errors[0]["code"])
-    end
-  end
-
-end
+require File.join(File.dirname(__FILE__), "/http/http_client.rb")
+require File.join(File.dirname(__FILE__), "/http/token_util.rb")
