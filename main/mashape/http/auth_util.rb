@@ -21,4 +21,23 @@
 # For any question or feedback please contact us at: support@mashape.com
 #++
 
-require File.join(File.dirname(__FILE__), "/http/http_client.rb")
+require 'cgi'
+require 'uri'
+require 'uuid'
+require 'base64'
+require 'hmac-sha1'
+
+module MashapeClient
+  module HTTP
+    class AuthUtil
+      
+      def AuthUtil.generateAuthenticationHeader(request, publicKey, privateKey)
+          uuid = UUID.new.generate
+          hash = HMAC::SHA1.hexdigest(privateKey, uuid)
+          request.add_field("X-Mashape-Authorization", Base64.encode64(publicKey + ":" + hash + uuid).chomp.gsub(/\n/,''))
+          return request
+      end
+ 
+    end
+  end
+end

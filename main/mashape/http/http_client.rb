@@ -27,6 +27,7 @@ require 'rubygems'
 require 'json'
 require File.join(File.dirname(__FILE__), "/../exceptions/mashape_client_exception.rb")
 require File.join(File.dirname(__FILE__), "/url_utils.rb")
+require File.join(File.dirname(__FILE__), "/auth_util.rb")
 
 module MashapeClient
   module HTTP
@@ -43,20 +44,19 @@ module MashapeClient
     
     class HttpClient
       
-      def HttpClient.do_request(method, url, parameters, token, &callback)
+      def HttpClient.do_request(method, url, parameters, mashapeAuthentication, publicKey, privateKey, &callback)
         if callback
           return Thread.new do
-            response = self.exec_request(method, url, parameters, token)
+            response = self.exec_request(method, url, parameters, mashapeAuthentication, publicKey, privateKey)
             callback.call(response)
           end
         else
-          return exec_request(method, url, parameters, token)
+          return exec_request(method, url, parameters, mashapeAuthentication, publicKey, privateKey)
         end
       end
       
-      def HttpClient.exec_request(method, url, parameters, token)
+      def HttpClient.exec_request(method, url, parameters, mashapeAuthentication, publicKey, privateKey)
         
-        url, parameters = MashapeClient::HTTP::UrlUtils.add_client_parameters(url, parameters, token)
         url, parameters = MashapeClient::HTTP::UrlUtils.prepare_request(url, parameters, (method == :get) ? false : true)
         
         uri = URI.parse(url);
@@ -80,6 +80,11 @@ module MashapeClient
           raise MashapeClient::Exceptions::MashapeClientException.new(MashapeClient::Exceptions::EXCEPTION_NOTSUPPORTED_HTTPMETHOD, MashapeClient::Exceptions::EXCEPTION_NOTSUPPORTED_HTTPMETHOD_CODE)
         end
         
+        request = MashapeClient::HTTP::UrlUtils.generateClientHeaders(request)
+        if mashapeAuthentication
+        	request = MashapeClient::HTTP::AuthUtil.generateAuthenticationHeader(request, publicKey, privateKey)
+        end
+          
         unless method == :get 
           request.set_form_data(parameters)
         end

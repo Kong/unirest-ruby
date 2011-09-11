@@ -29,10 +29,7 @@ module MashapeClient
     class UrlUtils
       
       CLIENT_LIBRARY_LANGUAGE="RUBY"
-      CLIENT_LIBRARY_VERSION="V03"
-      TOKEN="_token"
-      LANGUAGE="_language"
-      VERSION="_version"
+      CLIENT_LIBRARY_VERSION="V04"
       
       def UrlUtils.prepare_request(url, parameters, addRegularQueryStringParameters = false)
         parameters = {} if parameters.nil?
@@ -57,38 +54,23 @@ module MashapeClient
         finalUrl = finalUrl.gsub(/\?&/, "?");
         finalUrl = finalUrl.gsub(/\?$/, "");
         
-	if addRegularQueryStringParameters
+        if addRegularQueryStringParameters
 
-		uri = URI.parse(finalUrl)
-		queryStringParameters = CGI.parse(uri.query)
-		queryStringParameters.each_pair do |key, value|
-			parameters[key] = value unless parameters.has_key?(key)
-		end
+            uri = URI.parse(finalUrl)
+            queryStringParameters = CGI.parse(uri.query)
+            queryStringParameters.each_pair do |key, value|
+                parameters[key] = value unless parameters.has_key?(key)
+            end
 
-	end
+        end
 
         return finalUrl, parameters
       end
-      
-      def UrlUtils.add_client_parameters(url, parameters, token)
-        parameters = {} if parameters.nil?
         
-        url.include?("?") ? url << "&" : url << "?"
-        
-        url << self.add_client_parameter(TOKEN)
-        parameters[TOKEN] = token
-        url << "&" << self.add_client_parameter(LANGUAGE)
-        parameters[LANGUAGE] = CLIENT_LIBRARY_LANGUAGE
-        url << "&" << self.add_client_parameter(VERSION)
-        parameters[VERSION] = CLIENT_LIBRARY_VERSION
-        
-        return url, parameters
-      end
-      
-      private
-      
-      def UrlUtils.add_client_parameter(parameter)
-        return parameter + "={" + parameter + "}"
+      def UrlUtils.generateClientHeaders(request)
+          request.add_field("X-Mashape-Language", CLIENT_LIBRARY_LANGUAGE)
+          request.add_field("X-Mashape-Version", CLIENT_LIBRARY_VERSION)
+          return request
       end
       
     end

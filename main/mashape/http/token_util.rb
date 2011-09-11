@@ -32,13 +32,13 @@ module MashapeClient
       def TokenUtil.request_token(developer_key)
         
         parameters = {"devkey" => developer_key}
-        json_response = MashapeClient::HTTP::HttpClient.do_request(:post, TOKEN_URL, parameters, nil);
+        json_response = MashapeClient::HTTP::HttpClient.do_request(:post, TOKEN_URL, parameters, nil)
         
-        errors = json_response["errors"]
-        if errors.empty?
+        error = json_response["error"]
+        if error == nil
           return json_response["token"]
         else
-          raise MashapeClient::Exceptions::MashapeClientException.new(errors[0]["message"], errors[0]["code"])
+          raise MashapeClient::Exceptions::MashapeClientException.new(error["message"], error["code"])
         end
       end
       
