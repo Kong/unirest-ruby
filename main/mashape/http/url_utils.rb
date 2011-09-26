@@ -47,7 +47,7 @@ module MashapeClient
             finalUrl = finalUrl.gsub(/&?[\w]*=?\{#{key[0]}\}/, "");
           else
             # Url encodes the value
-	    finalUrl = finalUrl.gsub(/(\?.+)\{#{key[0]}\}/) { |match| $1 + CGI::escape(parameters[key[0]]) }
+            finalUrl = finalUrl.gsub(/(\?.+)\{#{key[0]}\}/) { |match| $1 + CGI::escape(parameters[key[0]]) }
             finalUrl = finalUrl.gsub(/\{#{key[0]}\}/, URI.escape(parameters[key[0]]))
           end
         end
@@ -57,11 +57,12 @@ module MashapeClient
         if addRegularQueryStringParameters
 
             uri = URI.parse(finalUrl)
-            queryStringParameters = CGI.parse(uri.query)
-            queryStringParameters.each_pair do |key, value|
+            unless uri.query == nil then
+              queryStringParameters = CGI.parse(uri.query)
+              queryStringParameters.each_pair do |key, value|
                 parameters[key] = value unless parameters.has_key?(key)
-            end
-
+	          end
+			end
         end
 
         return finalUrl, parameters
