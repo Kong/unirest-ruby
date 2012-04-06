@@ -23,7 +23,6 @@
 
 require 'cgi'
 require 'uri'
-require 'uuid'
 require 'base64'
 require 'hmac-sha1'
 
@@ -32,9 +31,8 @@ module MashapeClient
     class AuthUtil
       
       def AuthUtil.generateAuthenticationHeader(request, publicKey, privateKey)
-          uuid = UUID.new.generate
-          hash = HMAC::SHA1.hexdigest(privateKey, uuid)
-          request.add_field("X-Mashape-Authorization", Base64.encode64(publicKey + ":" + hash + uuid).chomp.gsub(/\n/,''))
+          hash = HMAC::SHA1.hexdigest(privateKey, publicKey)
+          request.add_field("X-Mashape-Authorization", Base64.encode64(publicKey + ":" + hash).chomp.gsub(/\n/,''))
           return request
       end
  
