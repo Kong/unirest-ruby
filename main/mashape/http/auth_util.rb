@@ -23,6 +23,7 @@
 
 require 'cgi'
 require 'uri'
+require 'uuid'
 require 'base64'
 require 'hmac-sha1'
 
@@ -31,9 +32,11 @@ module MashapeClient
     class AuthUtil
       
       def AuthUtil.generateAuthenticationHeader(request, publicKey, privateKey)
+        unless publicKey.empty? || privateKey.empty?
           hash = HMAC::SHA1.hexdigest(privateKey, publicKey)
           request.add_field("Proxy-Authorization", Base64.encode64(publicKey + ":" + hash).chomp.gsub(/\n/,''))
-          return request
+        end
+        return request
       end
  
     end

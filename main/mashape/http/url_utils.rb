@@ -28,6 +28,9 @@ module MashapeClient
   module HTTP
     class UrlUtils
       
+      CLIENT_LIBRARY_LANGUAGE="RUBY"
+      CLIENT_LIBRARY_VERSION="V04"
+      
       def UrlUtils.prepare_request(url, parameters, addRegularQueryStringParameters = false)
         parameters = {} if parameters.nil?
         parameters.each do |name,value|
@@ -66,7 +69,8 @@ module MashapeClient
       end
         
       def UrlUtils.generateClientHeaders(request)
-          request.add_field("User-Agent", "mashape-ruby/1.0")
+          request.add_field("X-Mashape-Language", CLIENT_LIBRARY_LANGUAGE)
+          request.add_field("X-Mashape-Version", CLIENT_LIBRARY_VERSION)
           return request
       end
       

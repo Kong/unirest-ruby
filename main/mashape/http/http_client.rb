@@ -44,18 +44,18 @@ module MashapeClient
     
     class HttpClient
       
-      def HttpClient.do_request(method, url, parameters, mashapeAuthentication, publicKey, privateKey, &callback)
+      def HttpClient.do_request(method, url, parameters, publicKey, privateKey, encodeJson = true, &callback)
         if callback
           return Thread.new do
-            response = self.exec_request(method, url, parameters, mashapeAuthentication, publicKey, privateKey)
+            response = self.exec_request(method, url, parameters, publicKey, privateKey, encodeJson)
             callback.call(response)
           end
         else
-          return exec_request(method, url, parameters, mashapeAuthentication, publicKey, privateKey)
+          return exec_request(method, url, parameters, publicKey, privateKey, encodeJson)
         end
       end
       
-      def HttpClient.exec_request(method, url, parameters, mashapeAuthentication, publicKey, privateKey)
+      def HttpClient.exec_request(method, url, parameters, publicKey, privateKey, encodeJson)
         
         url, parameters = MashapeClient::HTTP::UrlUtils.prepare_request(url, parameters, (method == :get) ? false : true)
         
@@ -81,9 +81,7 @@ module MashapeClient
         end
         
         request = MashapeClient::HTTP::UrlUtils.generateClientHeaders(request)
-        if mashapeAuthentication
-        	request = MashapeClient::HTTP::AuthUtil.generateAuthenticationHeader(request, publicKey, privateKey)
-        end
+        request = MashapeClient::HTTP::AuthUtil.generateAuthenticationHeader(request, publicKey, privateKey)
           
         unless method == :get 
           request.set_form_data(parameters)
@@ -91,6 +89,10 @@ module MashapeClient
         
         response = http.request(request).body
         
+        unless encodeJson
+            return response
+        end
+          
         json_response = nil;
         
         begin
