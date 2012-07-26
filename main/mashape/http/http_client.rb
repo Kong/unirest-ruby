@@ -28,6 +28,8 @@ require 'json'
 require File.join(File.dirname(__FILE__), "/../exceptions/mashape_client_exception.rb")
 require File.join(File.dirname(__FILE__), "/url_utils.rb")
 require File.join(File.dirname(__FILE__), "/auth_util.rb")
+require File.join(File.dirname(__FILE__), "/../auth/header_auth.rb")
+require File.join(File.dirname(__FILE__), "/../auth/query_auth.rb")
 
 module MashapeClient
   module HTTP
@@ -44,19 +46,28 @@ module MashapeClient
     
     class HttpClient
       
-      def HttpClient.do_request(method, url, parameters, publicKey, privateKey, encodeJson = true, &callback)
+      def HttpClient.do_request(method, url, parameters, auth_handlers, encodeJson = true, &callback)
         if callback
           return Thread.new do
-            response = self.exec_request(method, url, parameters, publicKey, privateKey, encodeJson)
+            response = self.exec_request(method, url, parameters, auth_handlers, encodeJson)
             callback.call(response)
           end
         else
-          return exec_request(method, url, parameters, publicKey, privateKey, encodeJson)
+          return exec_request(method, url, parameters, auth_handlers , encodeJson)
         end
       end
       
-      def HttpClient.exec_request(method, url, parameters, publicKey, privateKey, encodeJson)
-        
+      def HttpClient.exec_request(method, url, parameters, auth_handlers, encodeJson)
+        headers = {}
+        # figure out what kind of auth we have and where to put it
+        auth_handlers.each do |handler|
+          if handler.kind_of? MashapeClient::Auth::HeaderAuth
+            headers = headers.merge(handler.handleHeader)
+          elsif handler.kind_of? MashapeClient::Auth::QueryAuth
+            parameters = parameters.merge(handler.handleParams)
+          end
+        end
+
         url, parameters = MashapeClient::HTTP::UrlUtils.prepare_request(url, parameters, (method == :get) ? false : true)
         
         uri = URI.parse(url);
@@ -81,7 +92,9 @@ module MashapeClient
         end
         
         request = MashapeClient::HTTP::UrlUtils.generateClientHeaders(request)
-        request = MashapeClient::HTTP::AuthUtil.generateAuthenticationHeader(request, publicKey, privateKey)
+        headers.each do |header_name, header_value|
+          request.add_field(header_name, header_value)
+        end
           
         unless method == :get 
           request.set_form_data(parameters)

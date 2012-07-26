@@ -27,7 +27,7 @@ require 'uri'
 module MashapeClient
   module HTTP
     class UrlUtils
-      
+
       def UrlUtils.prepare_request(url, parameters, addRegularQueryStringParameters = false)
         parameters = {} if parameters.nil?
         parameters.each do |name,value|
@@ -37,7 +37,7 @@ module MashapeClient
             parameters[name] = value.to_s()
           end
         end
-        
+
         finalUrl = url
         url.scan(/\{([\w\.]+)\}/) do |key|
           unless parameters.has_key?(key[0])
@@ -50,26 +50,33 @@ module MashapeClient
         end
         finalUrl = finalUrl.gsub(/\?&/, "?");
         finalUrl = finalUrl.gsub(/\?$/, "");
-        
+
         if addRegularQueryStringParameters
 
-            uri = URI.parse(finalUrl)
-            unless uri.query == nil then
-              queryStringParameters = CGI.parse(uri.query)
-              queryStringParameters.each_pair do |key, value|
-                parameters[key] = value unless parameters.has_key?(key)
-	          end
-			end
+          uri = URI.parse(finalUrl)
+          unless uri.query == nil then
+            queryStringParameters = CGI.parse(uri.query)
+            queryStringParameters.each_pair do |key, value|
+              parameters[key] = value unless parameters.has_key?(key)
+            end
+          end
+        else
+          parameters.each do |name, value|
+            delimiter = (finalUrl.index("?") == nil) ? "?" : "&"
+            if finalUrl.index(delimiter + name) == nil
+              finalUrl = finalUrl + delimiter + name + "=" + CGI::escape(value)
+            end
+          end
         end
 
         return finalUrl, parameters
       end
-        
+
       def UrlUtils.generateClientHeaders(request)
           request.add_field("User-Agent", "mashape-ruby/1.0")
           return request
       end
-      
+
     end
   end
 end

@@ -31,12 +31,19 @@ module MashapeClient
   module HTTP
     class AuthUtil
       
-      def AuthUtil.generateAuthenticationHeader(request, publicKey, privateKey)
-        unless publicKey.empty? || privateKey.empty?
-          hash = HMAC::SHA1.hexdigest(privateKey, publicKey)
-          request.add_field("X-Mashape-Authorization", Base64.encode64(publicKey + ":" + hash).chomp.gsub(/\n/,''))
+      def AuthUtil.generateMashapeAuthHeader(public_key, private_key)
+        unless public_key.empty? || private_key.empty?
+          hash = HMAC::SHA1.hexdigest(private_key, public_key)
+          auth = {"X-Mashape-Authorization" => Base64.encode64(public_key + ":" + hash).chomp.gsub(/\n/,'')}
         end
-        return request
+        return auth
+      end
+      
+      def AuthUtil.generateBasicAuthHeader(username, password)
+        unless username.empty? || password.empty?
+          auth = {"Authorization" => Base64.encode64(username + ":" + password).chomp.gsub(/\n/,'')}
+        end
+        return auth
       end
  
     end
