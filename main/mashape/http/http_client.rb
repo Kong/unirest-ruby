@@ -59,6 +59,9 @@ module MashapeClient
       
       def HttpClient.exec_request(method, url, parameters, auth_handlers, encodeJson)
         headers = {}
+        if parameters == nil
+          parameters = {}
+        end
         # figure out what kind of auth we have and where to put it
         auth_handlers.each do |handler|
           if handler.kind_of? MashapeClient::Auth::HeaderAuth
