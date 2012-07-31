@@ -23,7 +23,6 @@
 
 require 'cgi'
 require 'uri'
-require 'uuid'
 require 'base64'
 require 'hmac-sha1'
 
