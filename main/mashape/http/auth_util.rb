@@ -40,7 +40,7 @@ module MashapeClient
       
       def AuthUtil.generateBasicAuthHeader(username, password)
         unless username.empty? || password.empty?
-          auth = {"Authorization" => Base64.encode64(username + ":" + password).chomp.gsub(/\n/,'')}
+          auth = {"Authorization" => "Basic " + Base64.encode64(username + ":" + password).chomp.gsub(/\n/,'')}
         end
         return auth
       end
