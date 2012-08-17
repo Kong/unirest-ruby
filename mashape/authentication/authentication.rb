@@ -1,7 +1,5 @@
-
-module MashapeClient
-  module Auth
-    class Auth
+module Mashape
+    class Authentication
       
       def initialize() 
         @header = Hash.new
@@ -17,5 +15,4 @@ module MashapeClient
       end
  
     end
-  end
 end
