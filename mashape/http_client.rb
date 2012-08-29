@@ -45,20 +45,20 @@ module Mashape
            headers = headers.merge(handler.handleHeader)
          elsif handler.kind_of? Mashape::QueryAuthentication
            parameters = parameters.merge(handler.handleParams)
-         elsif handler.kind_of? Mashape::OAuth10aAuthentication
-           if handler.handleParams[:access_token] == nil || handler.handleParams[:access_secret] == nil
-             raise Mashape::JsonException.new("Before consuming OAuth endpoint, invoke authenticate_oauth('access_token','access_secret') with not null values")
-           end
+#         elsif handler.kind_of? Mashape::OAuth10aAuthentication
+#           if handler.handleParams[:access_token] == nil || handler.handleParams[:access_secret] == nil
+#             raise Mashape::JsonException.new("Before consuming OAuth endpoint, invoke authenticate_oauth('access_token','access_secret') with not null values")
+#           end
            # These headers will be processed by the proxy to sign the request
-           headers["X-Mashape-OAuth-ConsumerKey"] = handler.handleParams[:consumer_key]
-           headers["X-Mashape-OAuth-ConsumerSecret"] = handler.handleParams[:consumer_secret]
-           headers["X-Mashape-OAuth-AccessToken"] = handler.handleParams[:access_token]
-           headers["X-Mashape-OAuth-AccessSecret"] = handler.handleParams[:access_secret]
-         elsif handler.kind_of? Mashape::OAuth2Authentication
-           if handler.handleParams[:access_token] == nil
-              raise Mashape::JsonException.new("Before consuming OAuth endpoint, invoke authenticate_oauth('access_token') with a not null value")
-            end
-           parameters = parameters.merge({"access_token" => handler.handleParams[:access_token]})
+#           headers["X-Mashape-OAuth-ConsumerKey"] = handler.handleParams[:consumer_key]
+#           headers["X-Mashape-OAuth-ConsumerSecret"] = handler.handleParams[:consumer_secret]
+#           headers["X-Mashape-OAuth-AccessToken"] = handler.handleParams[:access_token]
+#           headers["X-Mashape-OAuth-AccessSecret"] = handler.handleParams[:access_secret]
+#         elsif handler.kind_of? Mashape::OAuth2Authentication
+#           if handler.handleParams[:access_token] == nil
+#              raise Mashape::JsonException.new("Before consuming OAuth endpoint, invoke authenticate_oauth('access_token') with a not null value")
+#            end
+#           parameters = parameters.merge({"access_token" => handler.handleParams[:access_token]})
          end
        end
        
