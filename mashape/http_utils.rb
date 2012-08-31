@@ -1,10 +1,15 @@
 require File.join(File.dirname(__FILE__), "/mashape_exception.rb")
 require 'rubygems'
 require 'json'
+require 'uri'
 
 module Mashape
   
   class HttpUtils
+    
+    def HttpUtils.uriEncode(value)
+      return URI.escape(value)
+    end
     
     def HttpUtils.setRequestHeaders(content_type, response_type, headers)
       headers["User-Agent"] = "mashape-ruby/2.0"
