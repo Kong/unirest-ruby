@@ -88,7 +88,7 @@ module Mashape
         response.headers = httpResponse.headers
         response.raw_body = httpResponse
         
-        Mashape::HttpUtils.setResponse(httpResponse, response_type, response)
+        Mashape::HttpUtils.setResponse(response_type, response)
         
         return response
     end

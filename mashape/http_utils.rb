@@ -29,7 +29,7 @@ module Mashape
        end
     end
     
-    def HttpUtils.setResponse(response, response_type, output_response)
+    def HttpUtils.setResponse(response_type, output_response)
         case response_type
           when :json
            begin
@@ -38,7 +38,7 @@ module Mashape
              raise Mashape::JsonException.new("Can't parse the following response into JSON: " + output_response.raw_body)
            end
           else
-           output_response.body = httpResponse.body
+           output_response.body = output_response.raw_body
         end
     end
     
