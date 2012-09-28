@@ -49,7 +49,7 @@ module Mashape
          elsif handler.kind_of? Mashape::QueryAuthentication
            parameters = parameters.merge(handler.handleParams)
          elsif handler.kind_of? Mashape::OAuth10aAuthentication
-           if handler.handleParams[:access_token] == nil || handler.handleParams[:access_secret] == nil
+           if url.end_with?("/oauth_url") == false && (handler.handleParams[:access_token] == nil || handler.handleParams[:access_secret] == nil)
              raise Mashape::JsonException.new("Before consuming OAuth endpoint, invoke authorize('access_token','access_secret') with not null values")
            end
            # These headers will be processed by the proxy to sign the request
@@ -58,11 +58,12 @@ module Mashape
            headers["x-mashape-oauth-accesstoken"] = handler.handleParams[:access_token]
            headers["x-mashape-oauth-accesssecret"] = handler.handleParams[:access_secret]
          elsif handler.kind_of? Mashape::OAuth2Authentication
-           if handler.handleParams[:access_token] == nil
+           if url.end_with?("/oauth_url") == false && handler.handleParams[:access_token] == nil
               raise Mashape::JsonException.new("Before consuming OAuth endpoint, invoke authorize('access_token') with a not null value")
            end
            parameters = parameters.merge({"access_token" => handler.handleParams[:access_token]})
          end
+         
        end
        
        Mashape::HttpUtils.setRequestHeaders(content_type, response_type, headers)
