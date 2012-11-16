@@ -1,6 +1,7 @@
 require 'rubygems'
 require 'addressable/uri'
 require 'rest-client'
+require 'json'
 require File.join(File.dirname(__FILE__), "/authentication/mashape_authentication.rb")
 require File.join(File.dirname(__FILE__), "/authentication/custom_header_authentication.rb")
 require File.join(File.dirname(__FILE__), "/authentication/query_authentication.rb")
@@ -36,10 +37,7 @@ module Mashape
        
        headers = {}
        if parameters == nil
-         case content_type
-          when :form || :binary
             parameters = {}
-         end
        end
        
        # figure out what kind of auth we have and where to put it
@@ -67,6 +65,14 @@ module Mashape
        end
        
        Mashape::HttpUtils.setRequestHeaders(content_type, response_type, headers)
+       
+       if(content_type == :json)
+         unless parameters[:json_param_body] == nil
+           parameters = JSON(parameters[:json_param_body])
+         else
+           parameters = {}
+         end
+       end
        
        begin
         case method
