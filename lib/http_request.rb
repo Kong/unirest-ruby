@@ -1,3 +1,5 @@
+require 'addressable/uri'
+
 module MashapeRest
   
   class HttpRequest
@@ -12,7 +14,7 @@ module MashapeRest
     
     def initialize(method, url, headers = {}, body = nil)
       @method = method
-      @url = url
+      @url = URI.escape(url)
       @headers = {}
       # Make the header key lowercase
       headers.each_pair {|key, value| @headers[key.downcase] = value }

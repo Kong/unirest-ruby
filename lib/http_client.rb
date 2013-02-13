@@ -1,6 +1,5 @@
 require 'rubygems'
 require 'rest-client'
-require 'addressable/uri'
 
 require File.join(File.dirname(__FILE__), "/http_request.rb")
 require File.join(File.dirname(__FILE__), "/http_response.rb")
@@ -44,7 +43,7 @@ module MashapeRest
           when :put
             http_response = RestClient.put http_request.url, http_request.body, http_request.headers
           when :delete
-            http_response = RestClient.delete http_request.url, http_request.body, http_request.headers
+            http_response = RestClient.delete http_request.url, http_request.headers
           when :patch
             http_response = RestClient.patch http_request.url, http_request.body, http_request.headers
         end
@@ -61,20 +60,20 @@ module MashapeRest
     return HttpClient.request(:get, url, headers, nil, &callback)
   end
     
-  def self.post(url, headers = {}, body = nil, &callback)
-    return self.request(:post, url, headers, body, &callback)
+  def self.post(url, body = nil, headers = {}, &callback)
+    return HttpClient.request(:post, url, headers, body, &callback)
   end
     
-  def self.delete(url, headers = {}, body = nil, &callback)
-    return self.request(:delete, url, headers, body, &callback)
+  def self.delete(url, headers = {}, &callback)
+    return HttpClient.request(:delete, url, headers, nil, &callback)
   end
     
-  def self.put(url, headers = {}, body = nil, &callback)
-    return self.request(:put, url, headers, body, &callback)
+  def self.put(url, body = nil, headers = {}, &callback)
+    return HttpClient.request(:put, url, headers, body, &callback)
   end
     
-  def self.patch(url, headers = {}, body = nil, &callback)
-    return self.request(:patch, url, headers, body, &callback)
+  def self.patch(url, body = nil, headers = {}, &callback)
+    return HttpClient.request(:patch, url, headers, body, &callback)
   end
   
 end
