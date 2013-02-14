@@ -11,7 +11,6 @@ module MashapeRest
   class HttpClient
   
     def self.request(method, url, headers, body, &callback)
-      
       http_request = MashapeRest::HttpRequest.new(method, url, headers, body)
       
       if callback
@@ -23,12 +22,7 @@ module MashapeRest
       end
     end
     
-    def self.internal_request(http_request)
-      
-      if http_request == nil
-        raise "Create a valid HttpRequest object"
-      end
-    
+    def self.internal_request(http_request)      
       # Set the user agent
       http_request.add_header("user-agent", USER_AGENT)
       
@@ -50,7 +44,7 @@ module MashapeRest
       rescue => e
         http_response = e.response
       end
-      
+
       return MashapeRest::HttpResponse.new(http_response)
     end
     
