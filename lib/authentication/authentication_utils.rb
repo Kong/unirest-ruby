@@ -6,11 +6,7 @@ module Mashape
     class AuthenticationUtils
       
       def AuthenticationUtils.generateMashapeAuthHeader(public_key, private_key)
-        unless public_key.empty? || private_key.empty?
-          hash = HMAC::SHA1.hexdigest(private_key, public_key)
-          auth = {"X-Mashape-Authorization" => Base64.encode64(public_key + ":" + hash).chomp.gsub(/\n/,'')}
-        end
-        return auth
+        return {"X-Mashape-Authorization" => mashape_key}
       end
       
       def AuthenticationUtils.generateBasicAuthHeader(username, password)
