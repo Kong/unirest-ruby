@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'mashape'
-  s.version     = '2.0.6'
+  s.version     = '2.0.7'
   s.date        = Date.today.to_s
   s.summary     = "The Mashape Ruby client library"
   s.description = "The Mashape Ruby client library needed to consume APIs on Mashape"
