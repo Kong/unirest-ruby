@@ -5,7 +5,7 @@ require 'hmac-sha1'
 module Mashape
     class AuthenticationUtils
       
-      def AuthenticationUtils.generateMashapeAuthHeader(public_key, private_key)
+      def AuthenticationUtils.generateMashapeAuthHeader(mashape_key)
         return {"X-Mashape-Authorization" => mashape_key}
       end
       
