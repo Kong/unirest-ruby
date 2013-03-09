@@ -1,6 +1,6 @@
 require 'addressable/uri'
 
-module MashapeRest
+module Unicorn
   
   class HttpRequest
     attr_reader :method

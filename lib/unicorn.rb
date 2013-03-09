@@ -4,14 +4,14 @@ require 'rest-client'
 require File.join(File.dirname(__FILE__), "/http_request.rb")
 require File.join(File.dirname(__FILE__), "/http_response.rb")
 
-module MashapeRest
+module Unicorn
   
   USER_AGENT = "mashape-ruby/3.0"
   
   class HttpClient
   
     def self.request(method, url, headers, body, &callback)
-      http_request = MashapeRest::HttpRequest.new(method, url, headers, body)
+      http_request = Unicorn::HttpRequest.new(method, url, headers, body)
       
       if callback
         return Thread.new do
@@ -45,7 +45,7 @@ module MashapeRest
         http_response = e.response
       end
 
-      return MashapeRest::HttpResponse.new(http_response)
+      return Unicorn::HttpResponse.new(http_response)
     end
     
   end

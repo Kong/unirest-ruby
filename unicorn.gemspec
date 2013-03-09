@@ -1,9 +1,9 @@
 Gem::Specification.new do |s|
-  s.name        = 'mashape'
-  s.version     = '3.0.0'
+  s.name        = 'unicorn'
+  s.version     = '1.0.0'
   s.date        = Date.today.to_s
-  s.summary     = "The Mashape REST client library"
-  s.description = "The Mashape REST client library"
+  s.summary     = "Unicorn, the lightweight HTTP library"
+  s.description = "Unicorn is a set of lightweight HTTP libraries available in PHP, Ruby, Python, Java, Objective-C."
   s.authors     = ["Mashape"]
   s.email       = 'support@mashape.com'
   s.files       = Dir['lib/**/*.rb']
@@ -13,5 +13,6 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency "rest-client"
   s.add_runtime_dependency "json"
   s.add_runtime_dependency "addressable"
+  s.add_runtime_dependency "ruby-hmac"
 
 end

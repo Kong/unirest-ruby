@@ -1,16 +1,14 @@
-Mashape Ruby Client
+Unicorn-Ruby
 ============================================
 
-This is the base library for Mashape client libraries.
-
-For questions or feedback visit [mashape.com](http://mashape.com/)
+Unicorn is a set of lightweight HTTP libraries available in PHP, Ruby, Python, Java, Objective-C.
 
 Documentation
 -------------------
 
-For the documentation, read the Mashape Docs: [Mashape Ruby Docs](http://www.mashape.com/docs/consume/ruby)
+For the documentation, please visit http://www.mashape.com/docs/consume/php
 
 Copyright
 ---------------
 
-Copyright (C) 2012 Mashape, Inc.
+Copyright (C) 2013 Mashape, Inc.

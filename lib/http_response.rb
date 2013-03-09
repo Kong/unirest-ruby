@@ -1,6 +1,6 @@
 require 'json'
 
-module MashapeRest
+module Unicorn
   
   class HttpResponse
     attr_reader :code
