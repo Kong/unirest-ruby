@@ -6,7 +6,7 @@ require File.join(File.dirname(__FILE__), "/http_response.rb")
 
 module Unicorn
   
-  USER_AGENT = "mashape-ruby/3.0"
+  USER_AGENT = "unicorn-ruby/1.0"
   
   class HttpClient
   
