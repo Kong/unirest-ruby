@@ -27,8 +27,8 @@ module UnicornRest
       http_request.add_header("user-agent", USER_AGENT)
       
       http_response = nil;
-    
-      begin
+
+     begin
         case http_request.method
           when :get
             http_response = RestClient.get http_request.url, http_request.headers
@@ -41,9 +41,9 @@ module UnicornRest
           when :patch
             http_response = RestClient.patch http_request.url, http_request.body, http_request.headers
         end
-      rescue => e
-        http_response = e.response
-      end
+     rescue => e
+         http_response = e.response
+     end
 
       return UnicornRest::HttpResponse.new(http_response)
     end

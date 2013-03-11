@@ -14,6 +14,11 @@ module UnicornRest
     
     def initialize(method, url, headers = {}, body = nil)
       @method = method
+      
+      unless url =~ URI::regexp
+        raise "Invalid URL: " + url
+      end
+      
       @url = URI.escape(url)
       @headers = {}
       # Make the header key lowercase
