@@ -1,5 +1,5 @@
 Gem::Specification.new do |s|
-  s.name        = 'unicorn'
+  s.name        = 'unicorn-rest'
   s.version     = '1.0.0'
   s.date        = Date.today.to_s
   s.summary     = "Unicorn, the lightweight HTTP library"
