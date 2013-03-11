@@ -1,8 +1,8 @@
 require 'rubygems'
 require 'rest-client'
 
-require File.join(File.dirname(__FILE__), "/http_request.rb")
-require File.join(File.dirname(__FILE__), "/http_response.rb")
+require File.join(File.dirname(__FILE__), "/unicorn-rest/http_request.rb")
+require File.join(File.dirname(__FILE__), "/unicorn-rest/http_response.rb")
 
 module UnicornRest
   
