@@ -6,7 +6,8 @@ Gem::Specification.new do |s|
   s.description = "Unicorn is a set of lightweight HTTP libraries available in PHP, Ruby, Python, Java, Objective-C."
   s.authors     = ["Mashape"]
   s.email       = 'support@mashape.com'
-  s.files       = Dir['lib/*.rb']
+  s.files       = Dir['lib/**/*.rb']
+
   s.homepage    =
     'https://www.mashape.com'
     
