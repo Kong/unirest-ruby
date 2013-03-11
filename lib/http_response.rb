@@ -1,6 +1,6 @@
 require 'json'
 
-module Unicorn
+module UnicornRest
   
   class HttpResponse
     attr_reader :code

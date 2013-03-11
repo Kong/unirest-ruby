@@ -1,6 +1,6 @@
 require 'addressable/uri'
 
-module Unicorn
+module UnicornRest
   
   class HttpRequest
     attr_reader :method
