@@ -54,7 +54,7 @@ module UnicornRest
     return HttpClient.request(:get, url, headers, nil, &callback)
   end
     
-  def self.post(url, body = nil, headers = {}, &callback)
+  def self.post(url, headers = {}, body = nil, &callback)
     return HttpClient.request(:post, url, headers, body, &callback)
   end
     
@@ -62,11 +62,11 @@ module UnicornRest
     return HttpClient.request(:delete, url, headers, nil, &callback)
   end
     
-  def self.put(url, body = nil, headers = {}, &callback)
+  def self.put(url, headers = {}, body = nil, &callback)
     return HttpClient.request(:put, url, headers, body, &callback)
   end
     
-  def self.patch(url, body = nil, headers = {}, &callback)
+  def self.patch(url, headers = {}, body = nil, &callback)
     return HttpClient.request(:patch, url, headers, body, &callback)
   end
   

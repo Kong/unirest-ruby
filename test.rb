@@ -1,3 +1,3 @@
 require "unicorn-rest"
 
-#puts Unicorn::get("http//www.google.com")
+puts UnicornRest::get("http//www.google.com")
