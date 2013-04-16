@@ -9,47 +9,57 @@ Documentation
 ### Installing
 To utilize unicorn, install the `unicorn-rest` gem:
 
-    gem install unicorn-rest
+```
+gem install unicorn-rest
+```
 
 After installing the gem package you can now begin to simplifying requests by requiring `unicorn-rest`:
 
-    require 'unicorn-rest'
-
+```ruby
+require 'unicorn-rest'
+```
 
 ### Creating Request
 So you're probably wondering how using Unicorn makes creating requests in Ruby easier, let's start with a working example:
 
-
-    response = UnicornRest::post "http://httpbin.org/post",
-      { "Accept" => "application/json" },
-      {
-        :parameter => 23,
-        :foo => "bar"
-      }
+```ruby
+response = UnicornRest::post "http://httpbin.org/post",
+  { "Accept" => "application/json" },
+  {
+    :parameter => 23,
+    :foo => "bar"
+  }
+```
 
 
 ### File Uploads
-    response = UnicornRest::post "http://httpbin.org/post",
-      { "Accept" => "application/json" },
-      {
-        :parameter => 23,
-        :foo => "bar"
-      }
+```ruby
+response = UnicornRest::post "http://httpbin.org/post",
+  { "Accept" => "application/json" },
+  {
+    :parameter => 23,
+    :foo => "bar"
+  }
+```
  
 ### Custom Entity Body
-    response = UnicornRest::post "http://httpbin.org/post",
-      { "Accept" => "application/json" },
-      {
-        :parameter => "value",
-        :foo => "bar"
-      }.to_json
+```ruby
+response = UnicornRest::post "http://httpbin.org/post",
+  { "Accept" => "application/json" },
+  {
+    :parameter => "value",
+    :foo => "bar"
+  }.to_json
+```
 
 ### Request Reference
-    UnicornRest::get(url, headers = {}, &callback) 
-    UnicornRest::post(url, headers = {}, body = nil, &callback)
-    UnicornRest::put(url, headers = {}, body = nil, &callback)
-    UnicornRest::patch(url, headers = {}, body = nil, &callback)
-    UnicornRest::delete(url, headers = {}, &callback)
+```ruby
+UnicornRest::get(url, headers = {}, &callback) 
+UnicornRest::post(url, headers = {}, body = nil, &callback)
+UnicornRest::put(url, headers = {}, body = nil, &callback)
+UnicornRest::patch(url, headers = {}, body = nil, &callback)
+UnicornRest::delete(url, headers = {}, &callback)
+```
   
 `url`
 Endpoint, address, or uri to be acted upon and requested information from.
