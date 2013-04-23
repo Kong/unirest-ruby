@@ -25,17 +25,17 @@
 require 'rubygems'
 require 'rest-client'
 
-require File.join(File.dirname(__FILE__), "/unicorn-rest/http_request.rb")
-require File.join(File.dirname(__FILE__), "/unicorn-rest/http_response.rb")
+require File.join(File.dirname(__FILE__), "/unirest/http_request.rb")
+require File.join(File.dirname(__FILE__), "/unirest/http_response.rb")
 
-module UnicornRest
+module Unirest
   
-  USER_AGENT = "unicorn-ruby/1.0"
+  USER_AGENT = "unirest-ruby/1.0"
   
   class HttpClient
   
     def self.request(method, url, headers, body, &callback)
-      http_request = UnicornRest::HttpRequest.new(method, url, headers, body)
+      http_request = Unirest::HttpRequest.new(method, url, headers, body)
       
       if callback
         return Thread.new do
@@ -69,7 +69,7 @@ module UnicornRest
          http_response = e.response
      end
 
-      return UnicornRest::HttpResponse.new(http_response)
+      return Unirest::HttpResponse.new(http_response)
     end
     
   end

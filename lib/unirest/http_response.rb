@@ -22,32 +22,27 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 # 
 
-require 'addressable/uri'
+require 'json'
 
-module UnicornRest
+module Unirest
   
-  class HttpRequest
-    attr_reader :method
-    attr_reader :url 
-    attr_reader :headers
+  class HttpResponse
+    attr_reader :code
+    attr_reader :raw_body  
     attr_reader :body
+    attr_reader :headers
     
-    def add_header(name, value)
-      @headers[name] = value
-    end
-    
-    def initialize(method, url, headers = {}, body = nil)
-      @method = method
+    def initialize(http_response)
+      @code = http_response.code;
+      @headers = http_response.headers
+      @raw_body = http_response
+      @body = @raw_body
       
-      unless url =~ URI::regexp
-        raise "Invalid URL: " + url
+      begin
+        @body = JSON.parse(@raw_body)
+      rescue Exception
       end
       
-      @url = URI.escape(url)
-      @headers = {}
-      # Make the header key lowercase
-      headers.each_pair {|key, value| @headers[key.downcase] = value }
-      @body = body
     end
     
   end
