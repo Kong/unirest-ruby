@@ -1,29 +1,29 @@
-Unicorn-Ruby
+Unirest-Ruby
 ============================================
 
-Unicorn is a set of lightweight HTTP libraries available in PHP, Ruby, Python, Java, Objective-C.
+Unirest is a set of lightweight HTTP libraries available in PHP, Ruby, Python, Java, Objective-C.
 
 Documentation
 -------------------
 
 ### Installing
-To utilize unicorn, install the `unicorn-rest` gem:
+To utilize unirest, install the `unirest-rest` gem:
 
 ```
-gem install unicorn-rest
+gem install unirest-rest
 ```
 
-After installing the gem package you can now begin to simplifying requests by requiring `unicorn-rest`:
+After installing the gem package you can now begin to simplifying requests by requiring `unirest-rest`:
 
 ```ruby
-require 'unicorn-rest'
+require 'unirest-rest'
 ```
 
 ### Creating Request
-So you're probably wondering how using Unicorn makes creating requests in Ruby easier, let's start with a working example:
+So you're probably wondering how using Unirest makes creating requests in Ruby easier, let's start with a working example:
 
 ```ruby
-response = UnicornRest::post "http://httpbin.org/post",
+response = UnirestRest::post "http://httpbin.org/post",
   { "Accept" => "application/json" },
   {
     :parameter => 23,
@@ -34,7 +34,7 @@ response = UnicornRest::post "http://httpbin.org/post",
 
 ### File Uploads
 ```ruby
-response = UnicornRest::post "http://httpbin.org/post",
+response = UnirestRest::post "http://httpbin.org/post",
   { "Accept" => "application/json" },
   {
     :parameter => 23,
@@ -44,7 +44,7 @@ response = UnicornRest::post "http://httpbin.org/post",
  
 ### Custom Entity Body
 ```ruby
-response = UnicornRest::post "http://httpbin.org/post",
+response = UnirestRest::post "http://httpbin.org/post",
   { "Accept" => "application/json" },
   {
     :parameter => "value",
@@ -54,11 +54,11 @@ response = UnicornRest::post "http://httpbin.org/post",
 
 ### Request Reference
 ```ruby
-UnicornRest::get(url, headers = {}, &callback) 
-UnicornRest::post(url, headers = {}, body = nil, &callback)
-UnicornRest::put(url, headers = {}, body = nil, &callback)
-UnicornRest::patch(url, headers = {}, body = nil, &callback)
-UnicornRest::delete(url, headers = {}, &callback)
+UnirestRest::get(url, headers = {}, &callback) 
+UnirestRest::post(url, headers = {}, body = nil, &callback)
+UnirestRest::put(url, headers = {}, body = nil, &callback)
+UnirestRest::patch(url, headers = {}, body = nil, &callback)
+UnirestRest::delete(url, headers = {}, &callback)
 ```
   
 `url`
@@ -74,7 +74,7 @@ Request Body associative array or object
 Asychronous callback method to be invoked upon result.
 
 ### Response Reference
-Upon recieving a response Unicorn returns the result in the form of an Object, this object should always have the same keys for each language regarding to the response details.
+Upon recieving a response Unirest returns the result in the form of an Object, this object should always have the same keys for each language regarding to the response details.
 
 `code`
 HTTP Response Status Code (Example `200`)
