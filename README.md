@@ -6,8 +6,87 @@ Unicorn is a set of lightweight HTTP libraries available in PHP, Ruby, Python, J
 Documentation
 -------------------
 
-For the documentation, please visit http://www.mashape.com/docs/consume/php
+### Installing
+To utilize unicorn, install the `unicorn-rest` gem:
 
+```
+gem install unicorn-rest
+```
+
+After installing the gem package you can now begin to simplifying requests by requiring `unicorn-rest`:
+
+```ruby
+require 'unicorn-rest'
+```
+
+### Creating Request
+So you're probably wondering how using Unicorn makes creating requests in Ruby easier, let's start with a working example:
+
+```ruby
+response = UnicornRest::post "http://httpbin.org/post",
+  { "Accept" => "application/json" },
+  {
+    :parameter => 23,
+    :foo => "bar"
+  }
+```
+
+
+### File Uploads
+```ruby
+response = UnicornRest::post "http://httpbin.org/post",
+  { "Accept" => "application/json" },
+  {
+    :parameter => 23,
+    :foo => "bar"
+  }
+```
+ 
+### Custom Entity Body
+```ruby
+response = UnicornRest::post "http://httpbin.org/post",
+  { "Accept" => "application/json" },
+  {
+    :parameter => "value",
+    :foo => "bar"
+  }.to_json
+```
+
+### Request Reference
+```ruby
+UnicornRest::get(url, headers = {}, &callback) 
+UnicornRest::post(url, headers = {}, body = nil, &callback)
+UnicornRest::put(url, headers = {}, body = nil, &callback)
+UnicornRest::patch(url, headers = {}, body = nil, &callback)
+UnicornRest::delete(url, headers = {}, &callback)
+```
+  
+`url`
+Endpoint, address, or uri to be acted upon and requested information from.
+
+`headers`
+Request Headers as associative array or object
+
+`body`
+Request Body associative array or object
+
+`callback`
+Asychronous callback method to be invoked upon result.
+
+### Response Reference
+Upon recieving a response Unicorn returns the result in the form of an Object, this object should always have the same keys for each language regarding to the response details.
+
+`code`
+HTTP Response Status Code (Example `200`)
+
+`headers`
+HTTP Response Headers
+
+`body`
+Parsed response body where applicable, for example JSON responses are parsed to Objects / Associative Arrays.
+
+`raw_body`
+Un-parsed response body
 License
 ---------------
 
