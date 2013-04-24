@@ -7,23 +7,23 @@ Documentation
 -------------------
 
 ### Installing
-To utilize unirest, install the `unirest-rest` gem:
+To utilize unirest, install the `unirest` gem:
 
 ```
-gem install unirest-rest
+gem install unirest
 ```
 
-After installing the gem package you can now begin to simplifying requests by requiring `unirest-rest`:
+After installing the gem package you can now begin to simplifying requests by requiring `unirest`:
 
 ```ruby
-require 'unirest-rest'
+require 'unirest'
 ```
 
 ### Creating Request
 So you're probably wondering how using Unirest makes creating requests in Ruby easier, let's start with a working example:
 
 ```ruby
-response = UnirestRest::post "http://httpbin.org/post",
+response = Unirest::post "http://httpbin.org/post",
   { "Accept" => "application/json" },
   {
     :parameter => 23,
@@ -34,7 +34,7 @@ response = UnirestRest::post "http://httpbin.org/post",
 
 ### File Uploads
 ```ruby
-response = UnirestRest::post "http://httpbin.org/post",
+response = Unirest::post "http://httpbin.org/post",
   { "Accept" => "application/json" },
   {
     :parameter => 23,
@@ -44,7 +44,7 @@ response = UnirestRest::post "http://httpbin.org/post",
  
 ### Custom Entity Body
 ```ruby
-response = UnirestRest::post "http://httpbin.org/post",
+response = Unirest::post "http://httpbin.org/post",
   { "Accept" => "application/json" },
   {
     :parameter => "value",
@@ -54,11 +54,11 @@ response = UnirestRest::post "http://httpbin.org/post",
 
 ### Request Reference
 ```ruby
-UnirestRest::get(url, headers = {}, &callback) 
-UnirestRest::post(url, headers = {}, body = nil, &callback)
-UnirestRest::put(url, headers = {}, body = nil, &callback)
-UnirestRest::patch(url, headers = {}, body = nil, &callback)
-UnirestRest::delete(url, headers = {}, &callback)
+Unirest::get(url, headers = {}, &callback) 
+Unirest::post(url, headers = {}, body = nil, &callback)
+Unirest::put(url, headers = {}, body = nil, &callback)
+Unirest::patch(url, headers = {}, body = nil, &callback)
+Unirest::delete(url, headers = {}, &callback)
 ```
   
 `url`
