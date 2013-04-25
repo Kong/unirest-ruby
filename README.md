@@ -38,7 +38,7 @@ response = Unirest::post "http://httpbin.org/post",
   { "Accept" => "application/json" },
   {
     :parameter => 23,
-    :foo => "bar"
+    :file => File.new("/path/to/file", 'rb')
   }
 ```
  
