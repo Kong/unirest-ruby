@@ -2,10 +2,7 @@
 
 Unirest is a set of lightweight HTTP libraries available in multiple languages.
 
-Documentation
--------------------
-
-### Installing
+## Installing
 To utilize unirest, install the `unirest` gem:
 
 ```
@@ -18,7 +15,7 @@ After installing the gem package you can now begin to simplifying requests by re
 require 'unirest'
 ```
 
-### Creating Request
+## Creating Request
 So you're probably wondering how using Unirest makes creating requests in Ruby easier, let's start with a working example:
 
 ```ruby
@@ -31,7 +28,7 @@ response = Unirest::post "http://httpbin.org/post",
 ```
 
 
-### File Uploads
+## File Uploads
 ```ruby
 response = Unirest::post "http://httpbin.org/post",
   { "Accept" => "application/json" },
@@ -41,7 +38,7 @@ response = Unirest::post "http://httpbin.org/post",
   }
 ```
  
-### Custom Entity Body
+## Custom Entity Body
 ```ruby
 response = Unirest::post "http://httpbin.org/post",
   { "Accept" => "application/json" },
@@ -51,7 +48,7 @@ response = Unirest::post "http://httpbin.org/post",
   }.to_json
 ```
 
-### Request Reference
+# Request
 ```ruby
 Unirest::get(url, headers = {}, &callback) 
 Unirest::post(url, headers = {}, body = nil, &callback)
@@ -65,7 +62,7 @@ Unirest::delete(url, headers = {}, &callback)
 - `body` (`Array` | `Object` | `String`) - Request Body associative array or object
 - `callback` (`Function`) - _Optional_; Asychronous callback method to be invoked upon result.
 
-### Response Reference
+# Response
 Upon recieving a response Unirest returns the result in the form of an Object, this object should always have the same keys for each language regarding to the response details.
 
 - `code` - HTTP Response Status Code (Example `200`)
