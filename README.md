@@ -68,7 +68,7 @@ Unirest::delete(url, headers = {}, &callback)
 ### Response Reference
 Upon recieving a response Unirest returns the result in the form of an Object, this object should always have the same keys for each language regarding to the response details.
 
-`code` - HTTP Response Status Code (Example `200`)
-`headers` - HTTP Response Headers
-`body` - Parsed response body where applicable, for example JSON responses are parsed to Objects / Associative Arrays.
-`raw_body` - Un-parsed response body
+- `code` - HTTP Response Status Code (Example `200`)
+- `headers` - HTTP Response Headers
+- `body` - Parsed response body where applicable, for example JSON responses are parsed to Objects / Associative Arrays.
+- `raw_body` - Un-parsed response body
