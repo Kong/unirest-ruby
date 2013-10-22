@@ -19,7 +19,7 @@ require 'unirest'
 So you're probably wondering how using Unirest makes creating requests in Ruby easier, let's start with a working example:
 
 ```ruby
-response = Unirest::post "http://httpbin.org/post",
+response = Unirest.post "http://httpbin.org/post",
   { "Accept" => "application/json" },
   { :parameter => 23, :foo => "bar" }
 ```
@@ -27,25 +27,25 @@ response = Unirest::post "http://httpbin.org/post",
 
 ## File Uploads
 ```ruby
-response = Unirest::post "http://httpbin.org/post",
+response = Unirest.post "http://httpbin.org/post",
   { "Accept" => "application/json" },
   { :parameter => 23, :file => File.new("/path/to/file", 'rb') }
 ```
  
 ## Custom Entity Body
 ```ruby
-response = Unirest::post "http://httpbin.org/post",
+response = Unirest.post "http://httpbin.org/post",
   { "Accept" => "application/json" },
   { :parameter => "value", :foo => "bar" }.to_json
 ```
 
 # Request
 ```ruby
-Unirest::get(url, headers = {}, &callback) 
-Unirest::post(url, headers = {}, body = nil, &callback)
-Unirest::put(url, headers = {}, body = nil, &callback)
-Unirest::patch(url, headers = {}, body = nil, &callback)
-Unirest::delete(url, headers = {}, &callback)
+Unirest.get(url, headers = {}, &callback) 
+Unirest.post(url, headers = {}, body = nil, &callback)
+Unirest.put(url, headers = {}, body = nil, &callback)
+Unirest.patch(url, headers = {}, body = nil, &callback)
+Unirest.delete(url, headers = {}, &callback)
 ```
   
 - `url` (`String`) - Endpoint, address, or uri to be acted upon and requested information from.
