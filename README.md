@@ -21,10 +21,7 @@ So you're probably wondering how using Unirest makes creating requests in Ruby e
 ```ruby
 response = Unirest::post "http://httpbin.org/post",
   { "Accept" => "application/json" },
-  {
-    :parameter => 23,
-    :foo => "bar"
-  }
+  { :parameter => 23, :foo => "bar" }
 ```
 
 
@@ -32,20 +29,14 @@ response = Unirest::post "http://httpbin.org/post",
 ```ruby
 response = Unirest::post "http://httpbin.org/post",
   { "Accept" => "application/json" },
-  {
-    :parameter => 23,
-    :file => File.new("/path/to/file", 'rb')
-  }
+  { :parameter => 23, :file => File.new("/path/to/file", 'rb') }
 ```
  
 ## Custom Entity Body
 ```ruby
 response = Unirest::post "http://httpbin.org/post",
   { "Accept" => "application/json" },
-  {
-    :parameter => "value",
-    :foo => "bar"
-  }.to_json
+  { :parameter => "value", :foo => "bar" }.to_json
 ```
 
 # Request
