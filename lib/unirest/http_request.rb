@@ -39,7 +39,7 @@ module Unirest
     def initialize(method, url, headers = {}, body = nil)
       @method = method
       
-      unless url =~ URI::regexp
+      unless url =~ URI.regexp
         raise "Invalid URL: " + url
       end
       
