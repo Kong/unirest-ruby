@@ -14,6 +14,9 @@ Unirest is a set of lightweight HTTP libraries available in multiple languages, 
 Created with love by [thefosk](https://github.com/thefosk) @ [mashape.com](https://mashape.com)
 
 ## Installing
+
+Requirements: **Ruby >= 2.0**
+
 To utilize unirest, install the `unirest` gem:
 
 ```
