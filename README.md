@@ -31,7 +31,9 @@ require 'unirest'
 So you're probably wondering how using Unirest makes creating requests in Ruby easier, let's start with a working example:
 
 ```ruby
-response = Unirest.post "http://httpbin.org/post", headers:{ "Accept" => "application/json" }, parameters:{ :age => 23, :foo => "bar" }
+response = Unirest.post "http://httpbin.org/post", 
+                        headers:{ "Accept" => "application/json" }, 
+                        parameters:{ :age => 23, :foo => "bar" }
 
 response.code # Status code
 response.headers # Response headers
@@ -43,7 +45,9 @@ response.raw_body # Unparsed body
 Unirest-Ruby also supports asynchronous requests with a callback function specified inside a block, like:
 
 ```ruby
-response = Unirest.post "http://httpbin.org/post", headers:{ "Accept" => "application/json" }, parameters:{ :age => 23, :foo => "bar" } {|response|
+response = Unirest.post "http://httpbin.org/post", 
+                        headers:{ "Accept" => "application/json" }, 
+                        parameters:{ :age => 23, :foo => "bar" } {|response|
 	response.code # Status code
 	response.headers # Response headers
 	response.body # Parsed body
