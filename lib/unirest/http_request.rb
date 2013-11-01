@@ -23,6 +23,7 @@
 # 
 
 require 'addressable/uri'
+require "base64"
 
 module Unirest
   
@@ -31,23 +32,56 @@ module Unirest
     attr_reader :url 
     attr_reader :headers
     attr_reader :body
+    attr_reader :auth
     
     def add_header(name, value)
       @headers[name] = value
     end
     
-    def initialize(method, url, headers = {}, body = nil)
+    def initialize(method, url, headers = {}, body = nil, auth = nil)
       @method = method
       
+      if (method == :get)
+        if body.is_a?(Hash) && body.length > 0
+          if url.include? "?"
+            url += "&"
+          else
+            url += "?"
+          end
+
+          uri = Addressable::URI.new
+          uri.query_values = body
+          url += uri.query
+        end
+      else
+         @body = body
+      end
+
       unless url =~ URI.regexp
         raise "Invalid URL: " + url
       end
       
-      @url = URI.escape(url)
+      @url = url.gsub /\s+/, '%20'
+      
       @headers = {}
+
+      if auth != nil && auth.is_a?(Hash)
+        user = ""
+        password = ""
+        if auth[:user] != nil
+          user = auth[:user]
+        end
+        if auth[:password] != nil
+          password = auth[:password]
+        end
+
+        headers['Authorization'] = "Basic " + Base64.encode64(user + ":" + password)
+
+      end
+
+
       # Make the header key lowercase
       headers.each_pair {|key, value| @headers[key.downcase] = value }
-      @body = body
     end
     
   end
