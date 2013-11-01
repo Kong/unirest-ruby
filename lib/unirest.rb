@@ -110,6 +110,6 @@ module Unirest
     
   def self.patch(url, headers: {}, parameters: nil, auth:nil, &callback)
     return HttpClient.request(:patch, url, headers.merge(@@default_headers), parameters, auth, @@timeout, &callback)
-  end
+  end 
   
 end
