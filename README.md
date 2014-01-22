@@ -129,5 +129,11 @@ You can clear the default headers anytime with:
 Unirest.clear_default_headers()
 ```
 
+### User-Agent
 
+The default User-Agent string is `unirest-ruby/1.1`. You can customize
+it like this:
 
+```ruby
+Unirest.user_agent("custom_user_agent")
+```

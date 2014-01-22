@@ -172,5 +172,17 @@ module Unirest
 
     end
 
+    should "Custom User Agent" do
+
+      Unirest.user_agent("custom_ua/1.0")
+
+      response = Unirest.get("http://httpbin.org/get")
+      assert response.code == 200
+
+      headers = response.body['headers']
+      assert headers['User-Agent'] == "custom_ua/1.0"
+
+    end
+
   end
 end
