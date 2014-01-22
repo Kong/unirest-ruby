@@ -55,7 +55,7 @@ module Unirest
       
       http_response = nil;
 
-     begin
+      begin
         case http_request.method
           when :get
             http_response = RestClient::Request.execute(:method => :get, :url => http_request.url, :headers => http_request.headers, :timeout => timeout)
@@ -68,11 +68,11 @@ module Unirest
           when :patch
             http_response = RestClient::Request.execute(:method => :patch, :url => http_request.url, :payload => http_request.body, :headers => http_request.headers, :timeout => timeout)
         end
-     rescue RestClient::RequestTimeout
-      raise 'Request Timeout'
-     rescue => e
+      rescue RestClient::RequestTimeout
+        raise 'Request Timeout'
+      rescue => e
          http_response = e.response
-     end
+      end
 
       return Unirest::HttpResponse.new(http_response)
     end
