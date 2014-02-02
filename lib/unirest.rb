@@ -71,7 +71,7 @@ module Unirest
         end
      rescue RestClient::RequestTimeout
       raise 'Request Timeout'
-     rescue => e
+     rescue RestClient::Exception => e
          http_response = e.response
      end
 
