@@ -30,10 +30,9 @@ require File.join(File.dirname(__FILE__), "/unirest/http_response.rb")
 
 module Unirest
   
-  USER_AGENT = "unirest-ruby/1.1"
-
-  @@timeout = 10
+  @@timeout         = 10
   @@default_headers = {}
+  @@user_agent      = "unirest-ruby/1.1"
   
   class HttpClient
   
@@ -51,12 +50,12 @@ module Unirest
     
     def self.internal_request(http_request, timeout)      
       # Set the user agent
-      http_request.add_header("user-agent", USER_AGENT)
+      http_request.add_header("user-agent", Unirest.user_agent)
       http_request.add_header("accept-encoding", "gzip")
       
       http_response = nil;
 
-     begin
+      begin
         case http_request.method
           when :get
             http_response = RestClient::Request.execute(:method => :get, :url => http_request.url, :headers => http_request.headers, :timeout => timeout)
@@ -73,7 +72,7 @@ module Unirest
       raise 'Request Timeout'
      rescue RestClient::Exception => e
          http_response = e.response
-     end
+      end
 
       return Unirest::HttpResponse.new(http_response)
     end
@@ -90,6 +89,14 @@ module Unirest
 
   def self.timeout(seconds)
     @@timeout = seconds
+  end
+
+  def self.user_agent(user_agent=@@user_agent)
+    if user_agent
+      @@user_agent = user_agent
+    else
+      @@user_agent
+    end
   end
 
   def self.get(url, headers: {}, parameters: nil, auth:nil, &callback)
