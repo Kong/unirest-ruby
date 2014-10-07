@@ -75,7 +75,7 @@ module Unirest
           password = auth[:password]
         end
 
-        headers['Authorization'] = "Basic " + Base64.encode64(user + ":" + password)
+        headers['Authorization'] = 'Basic ' + ["#{user}:#{password}"].pack('m').delete("\r\n")
 
       end
 

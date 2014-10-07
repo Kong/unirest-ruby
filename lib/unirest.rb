@@ -68,9 +68,9 @@ module Unirest
           when :patch
             http_response = RestClient::Request.execute(:method => :patch, :url => http_request.url, :payload => http_request.body, :headers => http_request.headers, :timeout => timeout)
         end
-      rescue RestClient::RequestTimeout
-        raise 'Request Timeout'
-      rescue => e
+     rescue RestClient::RequestTimeout
+      raise 'Request Timeout'
+     rescue RestClient::Exception => e
          http_response = e.response
       end
 

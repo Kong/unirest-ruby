@@ -146,6 +146,15 @@ module Unirest
       assert response.code == 200
     end
 
+    should "Throw underlying error" do
+
+      begin
+        Unirest.get("http://bad.domain.test")
+      rescue => e
+        assert ! e.is_a?(NoMethodError)
+      end
+    end
+
     should "Default Headers" do
 
       Unirest.default_header('Hello','test')

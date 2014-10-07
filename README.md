@@ -19,7 +19,7 @@ Requirements: **Ruby >= 2.0**
 
 To utilize unirest, install the `unirest` gem:
 
-```
+```bash
 gem install unirest
 ```
 
