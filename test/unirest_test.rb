@@ -55,11 +55,11 @@ module Unirest
 
     should "POST custom body" do
       
-      response = Unirest.post("http://httpbin.org/post", parameters:"hello")
+      response = Unirest.post("http://httpbin.org/post", headers:{ "Content-Type" => "application/json" }, parameters:{'name' => 'Mark'}.to_json)
       assert response.code == 200
 
       data = response.body['data']
-      assert data == "hello"
+      assert data == '{"name":"Mark"}'
 
     end
 
@@ -92,8 +92,9 @@ module Unirest
       response = Unirest.delete("http://httpbin.org/delete", parameters:{'name' => 'Mark', 'nick'=> "sinz s"})
       assert response.code == 200
 
-      data = response.body['data']
-      assert data == "name=Mark&nick=sinz%20s"
+      data = response.body['form']
+      assert data['name'] == "Mark"
+      assert data['nick'] == "sinz s"
 
     end
 
