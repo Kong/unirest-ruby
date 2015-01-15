@@ -1,5 +1,7 @@
 # Unirest for Ruby [![Build Status](https://api.travis-ci.org/Mashape/unirest-ruby.png)](https://travis-ci.org/Mashape/unirest-ruby)
 
+[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Mashape/unirest-ruby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 Unirest is a set of lightweight HTTP libraries available in multiple languages, ideal for most applications:
 
 * Make `GET`, `POST`, `PUT`, `PATCH`, `DELETE` requests
