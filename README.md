@@ -1,4 +1,9 @@
-# Unirest for Ruby [![Build Status](https://api.travis-ci.org/Mashape/unirest-ruby.png)](https://travis-ci.org/Mashape/unirest-ruby)
+# Unirest for Ruby [![Build Status][travis-image]][travis-url] [![version][gem-version]][gem-url]
+
+[![License][license-image]][license-url]
+[![Downloads][gem-downloads]][gem-url]
+[![Code Climate][codeclimate-quality]][codeclimate-url]
+[![Gitter][gitter-image]][gitter-url]
 
 Unirest is a set of lightweight HTTP libraries available in multiple languages, ideal for most applications:
 
@@ -10,8 +15,6 @@ Unirest is a set of lightweight HTTP libraries available in multiple languages, 
 * Customizable timeout
 * Customizable default headers for every request (DRY)
 * Automatic JSON parsing into a native object for JSON responses
-
-Created with love by [thefosk](https://github.com/thefosk) @ [mashape.com](https://mashape.com)
 
 ## Installing
 
@@ -137,3 +140,27 @@ it like this:
 ```ruby
 Unirest.user_agent("custom_user_agent")
 ```
+
+----
+
+Made with &#9829; from the [Mashape](https://www.mashape.com/) team
+
+[license-url]: https://github.com/Mashape/unirest-ruby/blob/master/LICENSE
+[license-image]: https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square
+
+[gitter-url]: https://gitter.im/Mashape/unirest-ruby
+[gitter-image]: https://img.shields.io/badge/Gitter-Join%20Chat-blue.svg?style=flat-square
+
+[travis-url]: https://travis-ci.org/Mashape/unirest-ruby
+[travis-image]: https://img.shields.io/travis/Mashape/unirest-ruby.svg?style=flat-square
+
+[gem-url]: https://rubygems.org/gems/unirest
+[gem-version]: https://img.shields.io/gem/v/unirest.svg?style=flat-square
+[gem-downloads]: https://img.shields.io/gem/dt/unirest.svg?style=flat-square
+
+[codeclimate-url]: https://codeclimate.com/github/Mashape/unirest-ruby
+[codeclimate-quality]: https://img.shields.io/codeclimate/github/Mashape/unirest-ruby.svg?style=flat-square
+[codeclimate-coverage]: https://img.shields.io/codeclimate/coverage/github/Mashape/unirest-ruby.svg?style=flat-square
+
+[versioneye-url]: https://www.versioneye.com/user/projects/x
+[versioneye-image]: https://img.shields.io/versioneye/d/user/projects/x.svg?style=flat-square
