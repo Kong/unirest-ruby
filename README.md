@@ -148,21 +148,21 @@ Unirest.user_agent("custom_user_agent")
 Made with &#9829; from the [Mashape](https://www.mashape.com/) team
 
 [license-url]: https://github.com/Mashape/unirest-ruby/blob/master/LICENSE
-[license-image]: https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square
+[license-image]: https://img.shields.io/badge/license-MIT-blue.svg?style=flat
 
 [gitter-url]: https://gitter.im/Mashape/unirest-ruby
-[gitter-image]: https://img.shields.io/badge/Gitter-Join%20Chat-blue.svg?style=flat-square
+[gitter-image]: https://img.shields.io/badge/Gitter-Join%20Chat-blue.svg?style=flat
 
 [travis-url]: https://travis-ci.org/Mashape/unirest-ruby
-[travis-image]: https://img.shields.io/travis/Mashape/unirest-ruby.svg?style=flat-square
+[travis-image]: https://img.shields.io/travis/Mashape/unirest-ruby.svg?style=flat
 
 [gem-url]: https://rubygems.org/gems/unirest
-[gem-version]: https://img.shields.io/gem/v/unirest.svg?style=flat-square
-[gem-downloads]: https://img.shields.io/gem/dt/unirest.svg?style=flat-square
+[gem-version]: https://img.shields.io/gem/v/unirest.svg?style=flat
+[gem-downloads]: https://img.shields.io/gem/dt/unirest.svg?style=flat
 
 [codeclimate-url]: https://codeclimate.com/github/Mashape/unirest-ruby
-[codeclimate-quality]: https://img.shields.io/codeclimate/github/Mashape/unirest-ruby.svg?style=flat-square
-[codeclimate-coverage]: https://img.shields.io/codeclimate/coverage/github/Mashape/unirest-ruby.svg?style=flat-square
+[codeclimate-quality]: https://img.shields.io/codeclimate/github/Mashape/unirest-ruby.svg?style=flat
+[codeclimate-coverage]: https://img.shields.io/codeclimate/coverage/github/Mashape/unirest-ruby.svg?style=flat
 
 [versioneye-url]: https://www.versioneye.com/user/projects/x
-[versioneye-image]: https://img.shields.io/versioneye/d/user/projects/x.svg?style=flat-square
+[versioneye-image]: https://img.shields.io/versioneye/d/user/projects/x.svg?style=flat
