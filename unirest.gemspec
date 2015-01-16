@@ -2,9 +2,9 @@ Gem::Specification.new do |s|
   s.name        = 'unirest'
   s.version     = '1.1.2'
   s.summary     = "Unirest-Ruby"
-  s.description = "Unirest is a set of lightweight HTTP libraries available in multiple languages."
-  s.authors     = ["Mashape", "Marco Palladino"]
-  s.email       = 'support@mashape.com'
+  s.description = "Simplified, lightweight HTTP client library"
+  s.authors     = ["Mashape"]
+  s.email       = 'opensource@mashape.com'
   s.homepage    = 'https://github.com/Mashape/unirest-ruby'
   s.license     = 'MIT'
 
@@ -21,5 +21,5 @@ Gem::Specification.new do |s|
   s.files       = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- test/*`.split("\n")
   s.require_paths = ['lib']
-  
+
 end
