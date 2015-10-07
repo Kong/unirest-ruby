@@ -41,7 +41,7 @@ module Unirest
     def initialize(method, url, headers = {}, body = nil, auth = nil)
       @method = method
       
-      if (method == :get)
+      if method == :get
         if body.is_a?(Hash) && body.length > 0
           if url.include? "?"
             url += "&"
