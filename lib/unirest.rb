@@ -53,7 +53,7 @@ module Unirest
       http_request.add_header("user-agent", Unirest.user_agent)
       http_request.add_header("accept-encoding", "gzip")
 
-      http_response = nil;
+      http_response = nil
 
       begin
         case http_request.method
