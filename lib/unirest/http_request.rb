@@ -58,7 +58,7 @@ module Unirest
       end
 
       unless url =~ URI.regexp
-        raise "Invalid URL: " + url
+        raise "Invalid URL: #{url}"
       end
       
       @url = url.gsub /\s+/, '%20'
@@ -75,7 +75,7 @@ module Unirest
           password = auth[:password]
         end
 
-        headers['Authorization'] = 'Basic ' + ["#{user}:#{password}"].pack('m').delete("\r\n")
+        headers['Authorization'] = "Basic #{["#{user}:#{password}"].pack('m').delete("\r\n")}"
 
       end
 
