@@ -33,27 +33,27 @@ module Unirest
   @@timeout         = 10
   @@default_headers = {}
   @@user_agent      = "unirest-ruby/1.1"
-  
+
   class HttpClient
-  
+
     def self.request(method, url, headers, body, auth, timeout, &callback)
       http_request = Unirest::HttpRequest.new(method, url, headers, body, auth)
-      
+
       if callback
-        return Thread.new do
+        Thread.new do
           callback.call(self.internal_request(http_request, timeout))
         end
       else
-        return self.internal_request(http_request, timeout)
+        self.internal_request(http_request, timeout)
       end
     end
-    
-    def self.internal_request(http_request, timeout)      
+
+    def self.internal_request(http_request, timeout)
       # Set the user agent
       http_request.add_header("user-agent", Unirest.user_agent)
       http_request.add_header("accept-encoding", "gzip")
-      
-      http_response = nil;
+
+      http_response = nil
 
       begin
         case http_request.method
@@ -74,9 +74,9 @@ module Unirest
          http_response = e.response
       end
 
-      return Unirest::HttpResponse.new(http_response)
+      Unirest::HttpResponse.new(http_response)
     end
-    
+
   end
 
   def self.default_header(name, value)
@@ -100,23 +100,23 @@ module Unirest
   end
 
   def self.get(url, headers: {}, parameters: nil, auth:nil, &callback)
-    return HttpClient.request(:get, url, headers.merge(@@default_headers), parameters, auth, @@timeout, &callback)
+    HttpClient.request(:get, url, headers.merge(@@default_headers), parameters, auth, @@timeout, &callback)
   end
-    
+
   def self.post(url, headers: {}, parameters: nil, auth:nil, &callback)
-    return HttpClient.request(:post, url, headers.merge(@@default_headers), parameters, auth, @@timeout, &callback)
+    HttpClient.request(:post, url, headers.merge(@@default_headers), parameters, auth, @@timeout, &callback)
   end
-    
+
   def self.delete(url, headers: {}, parameters: nil, auth:nil, &callback)
-    return HttpClient.request(:delete, url, headers.merge(@@default_headers), parameters, auth, @@timeout, &callback)
+    HttpClient.request(:delete, url, headers.merge(@@default_headers), parameters, auth, @@timeout, &callback)
   end
-    
+
   def self.put(url, headers: {}, parameters: nil, auth:nil, &callback)
-    return HttpClient.request(:put, url, headers.merge(@@default_headers), parameters, auth, @@timeout, &callback)
+    HttpClient.request(:put, url, headers.merge(@@default_headers), parameters, auth, @@timeout, &callback)
   end
-    
+
   def self.patch(url, headers: {}, parameters: nil, auth:nil, &callback)
-    return HttpClient.request(:patch, url, headers.merge(@@default_headers), parameters, auth, @@timeout, &callback)
+    HttpClient.request(:patch, url, headers.merge(@@default_headers), parameters, auth, @@timeout, &callback)
   end
   
 end
