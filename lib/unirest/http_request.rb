@@ -81,7 +81,7 @@ module Unirest
 
 
       # Make the header key lowercase
-      headers.each_pair {|key, value| @headers[key.downcase] = value }
+      headers.each_pair {|key, value| @headers[key] = value }
     end
     
   end
