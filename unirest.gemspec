@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.homepage    = 'https://github.com/Mashape/unirest-ruby'
   s.license     = 'MIT'
 
-	s.add_dependency('rest-client', '~> 1.6.7')
+	s.add_dependency('rest-client', '~> 1.6')
 	s.add_dependency('json', '~> 1.8.1')
 	s.add_dependency('addressable', '~> 2.3.5')
 
