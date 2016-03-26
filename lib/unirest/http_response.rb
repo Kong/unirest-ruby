@@ -40,7 +40,7 @@ module Unirest
       
       begin
         @body = JSON.parse(@raw_body)
-      rescue Exception
+      rescue StandardError
       end
       
     end
