@@ -37,6 +37,12 @@ After installing the gem package you can now begin to simplifying requests by re
 require 'unirest'
 ```
 
+To add `unirest` to your Rails project, add this line to your project's gemfile:
+
+```ruby
+gem 'unirest'
+```
+
 ## Creating Requests
 
 So you're probably wondering how using Unirest makes creating requests in Ruby easier, let's start with a working example:
