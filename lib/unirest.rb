@@ -36,7 +36,6 @@ module Unirest
   @@user_agent      = "unirest-ruby/1.1"
 
   class HttpClient
-
     def self.request(method, url, headers, body, auth, timeout, proxy, &callback)
       http_request = Unirest::HttpRequest.new(method, url, headers, body, auth)
 
@@ -53,10 +52,10 @@ module Unirest
       # Set the user agent
       http_request.add_header("user-agent", Unirest.user_agent)
       http_request.add_header("accept-encoding", "gzip")
-
-      http_response = nil;
+      http_response = nil
 
       begin
+        RestClient.proxy = proxy unless proxy.nil?
         http_response = RestClient::Request.execute(:method => http_request.method.to_sym, :url => http_request.url, :headers => http_request.headers, :timeout => timeout, payload: (http_request.method != :get) ? http_request.body : nil)
       rescue RestClient::RequestTimeout
         raise 'Request Timeout'
@@ -64,7 +63,7 @@ module Unirest
         http_response = e.response
       end
 
-      return Unirest::HttpResponse.new(http_response)
+      Unirest::HttpResponse.new(http_response)
     end
 
   end

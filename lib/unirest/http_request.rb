@@ -41,7 +41,7 @@ module Unirest
     def initialize(method, url, headers = {}, body = nil, auth = nil)
       @method = method
       
-      if (method == :get)
+      if method == :get
         if body.is_a?(Hash) && body.length > 0
           if url.include? "?"
             url += "&"
@@ -58,7 +58,7 @@ module Unirest
       end
 
       unless url =~ URI.regexp
-        raise "Invalid URL: " + url
+        raise "Invalid URL: #{url}"
       end
       
       @url = url.gsub /\s+/, '%20'
@@ -75,7 +75,7 @@ module Unirest
           password = auth[:password]
         end
 
-        headers['Authorization'] = 'Basic ' + ["#{user}:#{password}"].pack('m').delete("\r\n")
+        headers['Authorization'] = "Basic #{["#{user}:#{password}"].pack('m').delete("\r\n")}"
 
       end
 

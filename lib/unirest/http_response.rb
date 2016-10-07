@@ -33,14 +33,14 @@ module Unirest
     attr_reader :headers
     
     def initialize(http_response)
-      @code = http_response.code;
+      @code = http_response.code
       @headers = http_response.headers
       @raw_body = http_response
       @body = @raw_body
       
       begin
         @body = JSON.parse(@raw_body)
-      rescue Exception
+      rescue StandardError
       end
       
     end
