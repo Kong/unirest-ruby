@@ -12,6 +12,7 @@ Gem::Specification.new do |s|
   s.add_dependency('json', '~> 2.0')
   s.add_dependency('addressable', '~> 2.4')
 
+  s.add_development_dependency('activesupport', '< 5.0.0')
   s.add_development_dependency('shoulda', '~> 3.5')
   s.add_development_dependency('test-unit', '~> 3.2')
   s.add_development_dependency('rake', '~> 11.3')
