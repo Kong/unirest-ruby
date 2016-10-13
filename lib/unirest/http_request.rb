@@ -57,7 +57,7 @@ module Unirest
          @body = body
       end
 
-      unless url =~ URI.regexp
+      unless url =~ URI::DEFAULT_PARSER.regexp[:ABS_URI]
         raise "Invalid URL: #{url}"
       end
       
