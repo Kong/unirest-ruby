@@ -61,7 +61,7 @@ module Unirest
         raise "Invalid URL: #{url}"
       end
       
-      @url = url.gsub /\s+/, '%20'
+      @url = url.gsub(/\s+/, '%20')
       
       @headers = {}
 
