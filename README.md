@@ -44,7 +44,7 @@ So you're probably wondering how using Unirest makes creating requests in Ruby e
 ```ruby
 response = Unirest.post "http://httpbin.org/post", 
                         headers:{ "Accept" => "application/json" }, 
-                        parameters:{ :age => 23, :foo => "bar" }
+                        params:{ :age => 23, :foo => "bar" }
 
 response.code # Status code
 response.headers # Response headers
@@ -58,7 +58,7 @@ Unirest-Ruby also supports asynchronous requests with a callback function specif
 ```ruby
 response = Unirest.post "http://httpbin.org/post", 
                         headers:{ "Accept" => "application/json" }, 
-                        parameters:{ :age => 23, :foo => "bar" } {|response|
+                        params:{ :age => 23, :foo => "bar" } {|response|
 	response.code # Status code
 	response.headers # Response headers
 	response.body # Parsed body
@@ -70,14 +70,14 @@ response = Unirest.post "http://httpbin.org/post",
 ```ruby
 response = Unirest.post "http://httpbin.org/post", 
                         headers:{ "Accept" => "application/json" }, 
-                        parameters:{ :age => 23, :file => File.new("/path/to/file", 'rb') }
+                        params:{ :age => 23, :file => File.new("/path/to/file", 'rb') }
 ```
  
 ## Custom Entity Body
 ```ruby
 response = Unirest.post "http://httpbin.org/post", 
                         headers:{ "Accept" => "application/json" }, 
-                        parameters:{ :age => "value", :foo => "bar" }.to_json # Converting the Hash to a JSON string
+                        params:{ :age => "value", :foo => "bar" }.to_json # Converting the Hash to a JSON string
 ```
 
 ### Basic Authentication
@@ -90,11 +90,11 @@ response = Unirest.get "http://httpbin.org/get", auth:{:user=>"username", :passw
 
 # Request
 ```ruby
-Unirest.get(url, headers: {}, parameters: nil, auth:nil, &callback)
-Unirest.post(url, headers: {}, parameters: nil, auth:nil, &callback)
-Unirest.delete(url, headers: {}, parameters: nil, auth:nil, &callback)
-Unirest.put(url, headers: {}, parameters: nil, auth:nil, &callback)
-Unirest.patch(url, headers: {}, parameters: nil, auth:nil, &callback)
+Unirest.get(url, headers: {}, params: nil, auth:nil, &callback)
+Unirest.post(url, headers: {}, params: nil, auth:nil, &callback)
+Unirest.delete(url, headers: {}, params: nil, auth:nil, &callback)
+Unirest.put(url, headers: {}, params: nil, auth:nil, &callback)
+Unirest.patch(url, headers: {}, params: nil, auth:nil, &callback)
 ```
   
 - `url` (`String`) - Endpoint, address, or uri to be acted upon and requested information from.
