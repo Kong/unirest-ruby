@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # The MIT License
 #
 # Copyright (c) 2013 Mashape (http://mashape.com)
@@ -9,10 +11,10 @@
 # distribute, sublicense, and/or sell copies of the Software, and to
 # permit persons to whom the Software is furnished to do so, subject to
 # the following conditions:
-# 
+#
 # The above copyright notice and this permission notice shall be
 # included in all copies or substantial portions of the Software.
-# 
+#
 # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
 # EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
 # MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
@@ -20,31 +22,24 @@
 # LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-# 
+#
 
 require 'json'
 
 module Unirest
-  
   class HttpResponse
-    attr_reader :code
-    attr_reader :raw_body  
-    attr_reader :body
-    attr_reader :headers
-    
+    attr_reader :code, :raw_body, :body, :headers
+
     def initialize(http_response)
-      @code = http_response.code
-      @headers = http_response.headers
+      @code     = http_response.code
+      @headers  = http_response.headers
       @raw_body = http_response
-      @body = @raw_body
-      
+      @body     = @raw_body
+
       begin
         @body = JSON.parse(@raw_body)
       rescue StandardError
       end
-      
     end
-    
   end
-  
 end
