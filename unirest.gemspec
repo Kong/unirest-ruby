@@ -12,7 +12,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency('addressable', '~> 2.7.0')
   s.add_dependency('json', '~> 2.3.1')
-  s.add_dependency('rest-client', '~> 2.1.0')
+  s.add_dependency('rest-client', '~> 2.0.2')
 
   s.add_development_dependency('byebug')
   s.add_development_dependency('rake')
