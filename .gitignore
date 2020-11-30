@@ -1,2 +1,5 @@
 .DS_Store
 *.gem
+.ruby-gemset
+.ruby-version
+.byebug_history
