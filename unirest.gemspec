@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 Gem::Specification.new do |s|
-  s.add_dependency('addressable', '~> 2.7.0')
+  s.add_dependency('addressable', '~> 2.8.0')
   s.add_dependency('json', '~> 2.3.1')
   s.add_dependency('rest-client', '~> 2.0.2')
 
