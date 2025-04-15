@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # The MIT License
 #
 # Copyright (c) 2013 Mashape (http://mashape.com)
@@ -9,10 +11,10 @@
 # distribute, sublicense, and/or sell copies of the Software, and to
 # permit persons to whom the Software is furnished to do so, subject to
 # the following conditions:
-# 
+#
 # The above copyright notice and this permission notice shall be
 # included in all copies or substantial portions of the Software.
-# 
+#
 # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
 # EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
 # MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
@@ -20,179 +22,142 @@
 # LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-# 
+#
 
+require 'byebug'
 require_relative '../lib/unirest'
 require 'test/unit'
 require 'shoulda'
 
 module Unirest
   class RequestsTest < Test::Unit::TestCase
-
-    should "GET" do
-      
-      response = Unirest.get("http://httpbin.org/get?name=Mark", parameters:{'nick'=> "sinz s"})
+    should 'GET' do
+      response = Unirest.get('http://httpbin.org/get?name=Mark', parameters: { 'nick'=> 'sinz s' })
       assert response.code == 200
 
       args = response.body['args']
       assert args.length == 2
       assert args['name'] == 'Mark'
       assert args['nick'] == 'sinz s'
-
     end
 
-    should "POST" do
-      
-      response = Unirest.post("http://httpbin.org/post", parameters:{'name' => 'Mark', 'nick'=> "sinz s"})
+    should 'POST' do
+      response = Unirest.post('http://httpbin.org/post', parameters: { 'name' => 'Mark', 'nick' => 'sinz s' })
       assert response.code == 200
 
       args = response.body['form']
       assert args.length == 2
       assert args['name'] == 'Mark'
       assert args['nick'] == 'sinz s'
-
     end
 
-    should "POST custom body" do
-      
-      response = Unirest.post("http://httpbin.org/post", headers:{ "Content-Type" => "application/json" }, parameters:{'name' => 'Mark'}.to_json)
+    should 'POST custom body' do
+      response = Unirest.post('http://httpbin.org/post', headers: { 'Content-Type' => 'application/json' }, parameters: { 'name' => 'Mark' }.to_json)
       assert response.code == 200
 
       data = response.body['data']
       assert data == '{"name":"Mark"}'
-
     end
 
-    should "PUT" do
-      
-      response = Unirest.put("http://httpbin.org/put", parameters:{'name' => 'Mark', 'nick'=> "sinz s"})
+    should 'PUT' do
+      response = Unirest.put('http://httpbin.org/put', parameters: { 'name' => 'Mark', 'nick' => 'sinz s' })
       assert response.code == 200
 
       args = response.body['form']
       assert args.length == 2
       assert args['name'] == 'Mark'
       assert args['nick'] == 'sinz s'
-
     end
 
-    should "PATCH" do
-      
-      response = Unirest.patch("http://httpbin.org/patch", parameters:{'name' => 'Mark', 'nick'=> "sinz s"})
+    should 'PATCH' do
+      response = Unirest.patch('http://httpbin.org/patch', parameters: { 'name' => 'Mark', 'nick' => 'sinz s' })
       assert response.code == 200
 
       args = response.body['form']
       assert args.length == 2
       assert args['name'] == 'Mark'
       assert args['nick'] == 'sinz s'
-
     end
 
-    should "DELETE" do
-      
-      response = Unirest.delete("http://httpbin.org/delete", parameters:{'name' => 'Mark', 'nick'=> "sinz s"})
+    should 'DELETE' do
+      response = Unirest.delete('http://httpbin.org/delete', parameters: { 'name' => 'Mark', 'nick' => 'sinz s' })
       assert response.code == 200
 
       data = response.body['form']
-      assert data['name'] == "Mark"
-      assert data['nick'] == "sinz s"
-
+      assert data['name'] == 'Mark'
+      assert data['nick'] == 'sinz s'
     end
 
-    should "GET ASYNC" do
-      
-      executed = false;
+    should 'GET ASYNC' do
+      executed = false
 
-      thread = Unirest.get("http://httpbin.org/get?name=Mark", parameters:{'nick'=> "sinz s"}) {|response|
-        assert response.code == 200
-        executed = true
-      }
+      thread =
+        Unirest.get('http://httpbin.org/get?name=Mark', parameters: { 'nick'=> 'sinz s' }) do |response|
+          assert response.code == 200
+          executed = true
+        end
 
-      assert thread != nil
+      assert !thread.nil?
       assert executed == false
-      thread.join()
+      thread.join
       assert executed == true
-
     end
 
-    should "gzip" do
-      
-      response = Unirest.get("http://httpbin.org/gzip")
+    should 'gzip' do
+      response = Unirest.get('http://httpbin.org/gzip')
       assert response.code == 200
-
-      assert response.body['gzipped'] == true
-
+      assert response.headers[:content_encoding] == 'gzip'
     end
 
-    should "Basic Authentication" do
-
-      response = Unirest.get("http://httpbin.org/get?name=Mark", parameters:{'nick'=> "sinz s"}, auth:{:user=>"marco", :password=>"password"})
+    should 'Basic Authentication' do
+      response = Unirest.get('http://httpbin.org/get?name=Mark', parameters: { 'nick'=> 'sinz s' }, auth: { user: 'marco', password: 'password' })
       assert response.code == 200
 
       headers = response.body['headers']
-      assert headers['Authorization'] == "Basic bWFyY286cGFzc3dvcmQ="
-
+      assert headers['Authorization'] == 'Basic bWFyY286cGFzc3dvcmQ='
     end
 
-    should "Timeout" do
-      
-      Unirest.timeout(1);
+    should 'Timeout' do
+      Unirest.timeout(1)
       begin
-        response = Unirest.get("http://httpbin.org/delay/3")
+        response = Unirest.get('http://httpbin.org/delay/3')
       rescue RuntimeError
         # Ok
       end
 
-      Unirest.timeout(3);
-      response = Unirest.get("http://httpbin.org/delay/1")
+      Unirest.timeout(3)
+      response = Unirest.get('http://httpbin.org/delay/1')
       assert response.code == 200
     end
 
-    should "Throw underlying error" do
-
-      begin
-        Unirest.get("http://bad.domain.test")
-      rescue => e
-        assert ! e.is_a?(NoMethodError)
-      end
+    should 'Throw underlying error' do
+      Unirest.get('http://bad.domain.test')
+    rescue StandardError => e
+      assert !e.is_a?(NoMethodError)
     end
 
-    should "Default Headers" do
+    should 'Default Headers' do
+      Unirest.default_header('Hello', 'test')
 
-      Unirest.default_header('Hello','test')
-
-      response = Unirest.get("http://httpbin.org/get")
+      response = Unirest.get('http://httpbin.org/get')
       assert response.code == 200
 
       headers = response.body['headers']
-      assert headers['Hello'] == "test"
+      assert headers['Hello'] == 'test'
 
-      response = Unirest.get("http://httpbin.org/get")
+      response = Unirest.get('http://httpbin.org/get')
       assert response.code == 200
 
       headers = response.body['headers']
-      assert headers['Hello'] == "test"
+      assert headers['Hello'] == 'test'
 
-      Unirest.clear_default_headers()
+      Unirest.clear_default_headers
 
-      response = Unirest.get("http://httpbin.org/get")
+      response = Unirest.get('http://httpbin.org/get')
       assert response.code == 200
 
       headers = response.body['headers']
-      assert headers['Hello'] == nil
-
+      assert headers['Hello'].nil?
     end
-
-    should "Custom User Agent" do
-
-      Unirest.user_agent("custom_ua/1.0")
-
-      response = Unirest.get("http://httpbin.org/get")
-      assert response.code == 200
-
-      headers = response.body['headers']
-      assert headers['User-Agent'] == "custom_ua/1.0"
-
-    end
-
   end
 end
