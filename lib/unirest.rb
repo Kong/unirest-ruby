@@ -100,23 +100,23 @@ module Unirest
   end
 
   def self.get(url, headers: {}, parameters: nil, auth:nil, &callback)
-    HttpClient.request(:get, url, headers.merge(@@default_headers), parameters, auth, @@timeout, &callback)
+    HttpClient.request(:get, url, @@default_headers.merge(headers), parameters, auth, @@timeout, &callback)
   end
 
   def self.post(url, headers: {}, parameters: nil, auth:nil, &callback)
-    HttpClient.request(:post, url, headers.merge(@@default_headers), parameters, auth, @@timeout, &callback)
+    HttpClient.request(:post, url, @@default_headers.merge(headers), parameters, auth, @@timeout, &callback)
   end
 
   def self.delete(url, headers: {}, parameters: nil, auth:nil, &callback)
-    HttpClient.request(:delete, url, headers.merge(@@default_headers), parameters, auth, @@timeout, &callback)
+    HttpClient.request(:delete, url, @@default_headers.merge(headers), parameters, auth, @@timeout, &callback)
   end
 
   def self.put(url, headers: {}, parameters: nil, auth:nil, &callback)
-    HttpClient.request(:put, url, headers.merge(@@default_headers), parameters, auth, @@timeout, &callback)
+    HttpClient.request(:put, url, @@default_headers.merge(headers), parameters, auth, @@timeout, &callback)
   end
 
   def self.patch(url, headers: {}, parameters: nil, auth:nil, &callback)
-    HttpClient.request(:patch, url, headers.merge(@@default_headers), parameters, auth, @@timeout, &callback)
+    HttpClient.request(:patch, url, @@default_headers.merge(headers), parameters, auth, @@timeout, &callback)
   end
   
 end
