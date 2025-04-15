@@ -9,7 +9,6 @@ Gem::Specification.new do |s|
   s.license     = 'MIT'
 
 	s.add_dependency('rest-client', '~> 1.8.0')
-	s.add_dependency('json', '~> 1.8.1')
 	s.add_dependency('addressable', '~> 2.3.5')
 
 	s.add_development_dependency('shoulda', '~> 3.5.0')
