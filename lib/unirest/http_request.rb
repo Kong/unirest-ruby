@@ -57,11 +57,13 @@ module Unirest
          @body = body
       end
 
-      unless url =~ URI.regexp
+      begin
+        Addressable::URI.parse url
+      rescue Addressable::URI::InvalidURIError
         raise "Invalid URL: #{url}"
       end
       
-      @url = url.gsub /\s+/, '%20'
+      @url = url.gsub(/\s+/, '%20')
       
       @headers = {}
 
